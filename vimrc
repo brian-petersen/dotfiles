@@ -14,9 +14,10 @@ Plugin 'VundleVim/Vundle.vim'
 
 " must haves
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'  " gcc, gc:motion
+Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tmhedberg/matchit'
 Plugin 'bling/vim-airline'
 Plugin 'rking/ag.vim'  " :help ag-mappings
 
@@ -57,11 +58,15 @@ nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <leader>gg :YcmCompleter GetDoc<CR>
 
 
+" YouCompleteMe settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType htmldjango setlocal commentstring={#%s#}
+
+
 " Emmet settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:user_emmet_install_global=0
 autocmd FileType html,css,htmldjango EmmetInstall
-
 
 
 " Syntastic settings
@@ -194,3 +199,8 @@ nmap <Leader>p "*p
 nmap <Leader>P "*P
 vmap <Leader>p "*p
 vmap <Leader>P "*P
+
+" Source local vimrc
+if filereadable('~/.vimrc.local')
+    source '~/.vimrc.local'
+endif
