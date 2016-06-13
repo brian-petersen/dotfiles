@@ -12,7 +12,7 @@ call vundle#begin()
 " Begin plugins
 Plugin 'VundleVim/Vundle.vim'
 
-" must haves
+" Must haves
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
@@ -21,19 +21,19 @@ Plugin 'tmhedberg/matchit'
 Plugin 'bling/vim-airline'
 Plugin 'rking/ag.vim'  " :help ag-mappings
 
-" ide like features
+" Ide like features
 Plugin 'scrooloose/syntastic'
 Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
-" convenience
+" Convenience
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'ciaranm/detectindent'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'godlygeek/tabular'
 
-" make it pretty
+" Make it pretty
 Plugin 'crusoexia/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
