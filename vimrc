@@ -34,7 +34,7 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'godlygeek/tabular'
 
 " Make it pretty
-Plugin 'crusoexia/vim-monokai'
+" Plugin 'crusoexia/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
 " HTML
@@ -110,12 +110,8 @@ set expandtab
 
 " Colorschemes
 syntax enable
-if has("gui_running")
-    set background=dark
-    colorscheme solarized
-else
-    colorscheme monokai
-endif
+set background=dark
+colorscheme solarized
 
 " Centralize swap, backup and undo files
 set backupdir=~/.vim/backup//
