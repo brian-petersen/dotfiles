@@ -19,7 +19,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'bling/vim-airline'
-Plugin 'rking/ag.vim'  " :help ag-mappings
+Plugin 'rking/ag.vim'
 
 " Ide like features
 Plugin 'scrooloose/syntastic'
@@ -34,7 +34,6 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'godlygeek/tabular'
 
 " Make it pretty
-" Plugin 'crusoexia/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
 " HTML
@@ -52,9 +51,10 @@ filetype plugin indent on    " required
 
 " YouCompleteMe settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" set ycm python path if using pyenv or something similar
-" let g:ycm_python_binary_path='/home/brian/.pyenv/versions/3.4.4/bin/python'
+" set ycm python path if using pyenv or something similar for python semantic
+" completion (https://github.com/Valloric/YouCompleteMe#python-semantic-completion)
 " let g:ycm_python_binary_path='/Users/brian/.pyenv/versions/3.4.4/bin/python'
+let g:ycm_autoclose_preview_window_after_insertion = 1
 nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <leader>gg :YcmCompleter GetDoc<CR>
 
