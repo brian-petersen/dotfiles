@@ -54,6 +54,7 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " set ycm python path if using pyenv or something similar
 " let g:ycm_python_binary_path='/home/brian/.pyenv/versions/3.4.4/bin/python'
+" let g:ycm_python_binary_path='/Users/brian/.pyenv/versions/3.4.4/bin/python'
 nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap <leader>gg :YcmCompleter GetDoc<CR>
 
@@ -99,6 +100,9 @@ set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
+
+" use mouse
+set mouse=a
 
 " Sane tab settings
 set autoindent
@@ -197,6 +201,6 @@ vmap <Leader>p "*p
 vmap <Leader>P "*P
 
 " Source local vimrc
-if filereadable('~/.vimrc.local')
-    source '~/.vimrc.local'
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
 endif
