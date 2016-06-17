@@ -27,11 +27,14 @@ Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
-" Convenience
-Plugin 'jlanzarotta/bufexplorer'
+" Formatting
 Plugin 'ciaranm/detectindent'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'godlygeek/tabular'
+
+" Convenience
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'christoomey/vim-system-copy'  " adds motion to copy (cp<mortion>)
 
 " Make it pretty
 Plugin 'altercation/vim-colors-solarized'
@@ -194,11 +197,10 @@ nnoremap <Leader>o :CtrlP<CR>
 " System copy and paste
 vmap <Leader>y "*y
 vmap <Leader>d "*d
+vmap <Leader>p "*p
 nmap <Leader>Y "*Y
 nmap <Leader>p "*p
 nmap <Leader>P "*P
-vmap <Leader>p "*p
-vmap <Leader>P "*P
 
 " Source local vimrc
 if filereadable(glob("~/.vimrc.local"))
