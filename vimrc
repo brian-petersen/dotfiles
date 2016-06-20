@@ -38,6 +38,7 @@ Plugin 'christoomey/vim-system-copy'  " adds motion to copy (cp<mortion>)
 
 " Make it pretty
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'sickill/vim-monokai'
 
 " HTML
 Plugin 'mattn/emmet-vim'
@@ -104,7 +105,7 @@ set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 
-" use mouse
+" Allow use of mouse
 set mouse=a
 
 " Sane tab settings
@@ -117,8 +118,9 @@ set expandtab
 
 " Colorschemes
 syntax enable
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
+colorscheme monokai
 
 " Centralize swap, backup and undo files
 set backupdir=~/.vim/backup//
