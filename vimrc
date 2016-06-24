@@ -1,6 +1,5 @@
 let mapleader=" "
 
-
 " Vundle Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
@@ -34,7 +33,6 @@ Plugin 'godlygeek/tabular'
 
 " Convenience
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'christoomey/vim-system-copy'  " adds motion to copy (cp<mortion>)
 
 " Make it pretty
 Plugin 'altercation/vim-colors-solarized'
@@ -51,6 +49,11 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
+
+
+" Custom Shortcuts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <Leader>t :%s/\s\+$//<CR>
 
 
 " YouCompleteMe settings
