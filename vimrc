@@ -22,7 +22,6 @@ Plugin 'rking/ag.vim'
 
 " Ide like features
 Plugin 'scrooloose/syntastic'
-Plugin 'valloric/youcompleteme'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
@@ -35,7 +34,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'jlanzarotta/bufexplorer'
 
 " Make it pretty
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'sickill/vim-monokai'
 
 " HTML
