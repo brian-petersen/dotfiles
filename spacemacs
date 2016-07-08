@@ -27,6 +27,7 @@
      emacs-lisp
      git
      html
+     javascript  ;; npm -g install tern jshint
      org
      python
      (shell :variables
