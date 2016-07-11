@@ -14,21 +14,17 @@ Plugin 'VundleVim/Vundle.vim'
 " Must haves
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'bling/vim-airline'
 Plugin 'rking/ag.vim'
 
 " Ide like features
-Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
 " Formatting
 Plugin 'ciaranm/detectindent'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'godlygeek/tabular'
 
 " Convenience
 Plugin 'jlanzarotta/bufexplorer'
@@ -38,9 +34,6 @@ Plugin 'sickill/vim-monokai'
 
 " HTML
 Plugin 'mattn/emmet-vim'
-
-" Python
-Plugin 'jmcantrell/vim-virtualenv'
 
 call vundle#end()            " required
 
@@ -54,21 +47,6 @@ filetype plugin indent on    " required
 nnoremap <Leader>t :%s/\s\+$//<CR>
 
 
-" YouCompleteMe settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set ycm python path if using pyenv or something similar for python semantic
-" completion (https://github.com/Valloric/YouCompleteMe#python-semantic-completion)
-" let g:ycm_python_binary_path='/Users/brian/.pyenv/versions/3.4.4/bin/python'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-nnoremap <leader>gd :YcmCompleter GoTo<CR>
-nnoremap <leader>gg :YcmCompleter GetDoc<CR>
-
-
-" YouCompleteMe settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType htmldjango setlocal commentstring={#%s#}
-
-
 " Emmet settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:user_emmet_install_global=0
@@ -77,21 +55,21 @@ autocmd FileType html,css,htmldjango EmmetInstall
 
 " Syntastic settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>st :SyntasticToggleMode<CR>
-nnoremap <leader>sc :SyntasticCheck<CR>
+" nnoremap <leader>st :SyntasticToggleMode<CR>
+" nnoremap <leader>sc :SyntasticCheck<CR>
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_auto_loc_list=1
+" let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_wq=0
 
-" Syntastic python setup
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E501'  " ignore over 80
+" " Syntastic python setup
+" let g:syntastic_python_checkers=['flake8']
+" let g:syntastic_python_flake8_args='--ignore=E501'  " ignore over 80
 
 
 " Other General Settings
@@ -191,10 +169,10 @@ map <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Enter into normal mode quickly
-:imap jj <Esc>
+:imap fd <Esc>
 
 " Quickly save and open files
-nnoremap <Leader>w :w<CR>
+nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>o :CtrlP<CR>
 
 " System copy and paste
