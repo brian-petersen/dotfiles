@@ -22,6 +22,7 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     c-c++
      chrome
      django
      emacs-lisp
