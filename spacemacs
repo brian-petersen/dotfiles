@@ -24,7 +24,6 @@
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t)
      c-c++
-     chrome
      django
      emacs-lisp
      git
