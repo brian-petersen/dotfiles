@@ -33,7 +33,7 @@
      ;; osx ;; find way to say if on mac
      python
      (shell :variables
-            shell-default-shell 'shell
+            shell-default-shell 'eshell
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
