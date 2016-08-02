@@ -22,20 +22,21 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t)
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t)
      c-c++
-     django
      emacs-lisp
      git
      html
      javascript  ;; npm -g install tern jshint
      org
+     ;; osx ;; find way to say if on mac
      python
      (shell :variables
-            shell-default-shell 'term
+            shell-default-shell 'shell
             shell-default-height 30
             shell-default-position 'bottom)
-     ;; spell-checking
+     spell-checking
      syntax-checking
      version-control
      )
@@ -249,9 +250,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-
-  (when (require 'edit-server nil t)
-    (setq edit-server-new-frame nil))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
