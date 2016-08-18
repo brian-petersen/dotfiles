@@ -95,6 +95,9 @@ nnoremap <leader><leader> <c-^>
 syntax enable
 colorscheme monokai
 
+set foldmethod=syntax
+set foldlevel=99
+
 set ic
 set so=3
 set ruler
