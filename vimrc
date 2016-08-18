@@ -1,91 +1,111 @@
+" Brian Petersen's .vimrc
+
+" Initial
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=" "
+
 
 " Vundle Setup
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Begin plugins
+" Vundle itself
 Plugin 'VundleVim/Vundle.vim'
 
-" Must haves
+" tpope is a boss
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+
+" search for project files
 Plugin 'kien/ctrlp.vim'
-Plugin 'tmhedberg/matchit'
-Plugin 'bling/vim-airline'
+
+" syntax checker
+Plugin 'scrooloose/syntastic'
+
+" search everything
 Plugin 'rking/ag.vim'
 
-" Ide like features
+" get a pretty status bar
+Plugin 'bling/vim-airline'
+
+" get file browser
 Plugin 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
 
-" Formatting
-Plugin 'ciaranm/detectindent'
-
-" Convenience
+" make buffer management
 Plugin 'jlanzarotta/bufexplorer'
 
-" Make it pretty
+" match html elements
+Plugin 'tmhedberg/matchit'
+
+" make it pretty
 Plugin 'sickill/vim-monokai'
 
-" HTML
-Plugin 'mattn/emmet-vim'
-
-call vundle#end()            " required
-
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+call vundle#end()
+filetype plugin indent on
 
 
-" Custom Shortcuts
+" Plugin Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <Leader>t :%s/\s\+$//<CR>
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_wq=0
 
 
-" Emmet settings
+" Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:user_emmet_install_global=0
-autocmd FileType html,css,htmldjango EmmetInstall
+" Global toggles
+nnoremap <leader>ts :SyntasticToggleMode<CR>
+nmap <leader>tl :set list!<CR>
+
+" Syntax checker
+nnoremap <leader>sc :SyntasticCheck<CR>
+
+" File
+nnoremap <Leader>fs :w<CR>
+map <Leader>fl :NERDTreeToggle<CR>
+
+" Delete
+nnoremap <Leader>dt :%s/\s\+$//<CR>
 
 
-" Syntastic settings
+" Other Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>st :SyntasticToggleMode<CR>
-" nnoremap <leader>sc :SyntasticCheck<CR>
+" exit insert mode quickly
+:imap fd <Esc>
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+" open files quickly
+nnoremap <Leader>o :CtrlP<CR>
 
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq=0
-
-" " Syntastic python setup
-" let g:syntastic_python_checkers=['flake8']
-" let g:syntastic_python_flake8_args='--ignore=E501'  " ignore over 80
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
 
 
-" Other General Settings
+" General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-set guifont=SourceCodePro-Regular:h12
+syntax enable
+colorscheme monokai
 
-set so=3  " Provide spacing around edges
+set ic
+set so=3
+set ruler
+set showcmd
+set incsearch
+set laststatus=2
 
-set history=50
-set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-
-" Allow use of mouse
-set mouse=a
+" Numbers
+set number
+set relativenumber
+set numberwidth=5
 
 " Sane tab settings
 set autoindent
@@ -95,22 +115,22 @@ set shiftwidth=4
 set shiftround
 set expandtab
 
-" Colorschemes
-syntax enable
-" set background=dark
-" colorscheme solarized
-colorscheme monokai
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" Always use vertical diffs
+set diffopt+=vertical
 
 " Centralize swap, backup and undo files
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
@@ -120,17 +140,6 @@ set colorcolumn=81
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags='li\|p'
-
-" Numbers
-set number
-set relativenumber
-set numberwidth=5
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -145,43 +154,9 @@ if executable('ag')
     let g:ctrlp_use_caching=0
 endif
 
-" Open new split panes to right and bottom, which feels more natural
+" Open new split panes to right and bottom
 set splitbelow
 set splitright
-
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
-
-" Case insensitive search
-set ic
-
-" Nerdtree sidebar
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" Enter into normal mode quickly
-:imap fd <Esc>
-
-" Quickly save and open files
-nnoremap <Leader>fs :w<CR>
-nnoremap <Leader>o :CtrlP<CR>
-
-" System copy and paste
-vmap <Leader>y "*y
-vmap <Leader>d "*d
-vmap <Leader>p "*p
-nmap <Leader>Y "*Y
-nmap <Leader>p "*p
-nmap <Leader>P "*P
 
 " Source local vimrc
 if filereadable(glob("~/.vimrc.local"))
