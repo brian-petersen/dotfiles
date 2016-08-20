@@ -48,6 +48,10 @@ Plugin 'tomasr/molokai'
 " visualize undo
 Plugin 'sjl/gundo.vim'
 
+" markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 " autocomplete
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'sirver/ultisnips'
@@ -152,6 +156,8 @@ nnoremap <leader>u :GundoToggle<CR>
 syntax enable
 let g:rehash256=1
 colorscheme molokai
+
+set pastetoggle=<F2>
 
 set wildmenu
 set lazyredraw
