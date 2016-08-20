@@ -71,6 +71,8 @@ let g:neomake_error_sign = {
 " }}}
 
 " YouCompleteMe {{{
+let g:ycm_python_binary_path = 'python'
+
 let g:ycm_autoclose_preview_window_after_insertion=1
 " }}}
 
