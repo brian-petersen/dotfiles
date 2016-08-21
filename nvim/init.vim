@@ -221,7 +221,7 @@ set diffopt+=vertical
 
 " Centralize swap, backup and undo files
 set backupdir=~/.config/nvim/backup//
-set directory=~/.config/nivm/swap//
+set directory=~/.config/nvim/swap//
 set undodir=~/.config/nvim/undo//
 
 " Use one space, not two, after punctuation.
@@ -231,7 +231,7 @@ set nojoinspaces
 set colorcolumn=81
 
 " Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags='li\|p'
+let g:html_indent_inctags = "html,body,head,tbody,li,p" 
 
 " Open new split panes to right and bottom
 set splitbelow
