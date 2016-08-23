@@ -54,6 +54,10 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 
+" Python specific
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'tmhedberg/simpylfold'
+
 call plug#end()
 " }}}
 
@@ -103,6 +107,11 @@ let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 " }}}
+
+" Simpyl Folding {{{
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+" }}}
 " }}}
 
 " Keybindings {{{
@@ -115,10 +124,7 @@ nmap <leader>tl :set list!<CR>
 
 " Errors
 nnoremap <leader>ec :SyntasticCheck<CR>
-" nnoremap <leader>ec :Neomake<CR>
-nnoremap <leader>el :Errors<CR>
-nnoremap <leader>en :lnext<CR>
-nnoremap <leader>ep :lprevious<CR>
+nnoremap <leader>er :SyntasticReset<CR>
 
 " Search
 call esearch#map('<leader>ss', 'esearch')
@@ -133,12 +139,22 @@ nmap <Leader>fl :NERDTreeToggle<CR>
 
 " Delete
 nnoremap <Leader>dt :%s/\s\+$//<CR>
-"
+
+" Tabs
+nnoremap <leader>Tn :tabnew<CR>
+nnoremap <leader>Tc :tabclose<CR>
+nnoremap <leader>To :tabonly<CR>
 
 " Goto
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+
+" Location list
+nnoremap <leader>lo :lopen<CR>
+nnoremap <leader>lc :lclose<CR>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprevious<CR>
 " }}}
 
 " Other Keybindings {{{
@@ -181,9 +197,11 @@ set wildmode=longest:full,full
 set lazyredraw
 set showmatch
 
+set cursorline
+
 set foldenable
-set foldmethod=indent
-set foldlevel=99
+set foldmethod=syntax
+set foldlevel=99  " open files with folds open
 
 set ignorecase
 set smartcase
