@@ -58,6 +58,9 @@ Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'tmhedberg/simpylfold'
 
+" Tmux
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 " }}}
 
@@ -165,16 +168,12 @@ imap fd <Esc>
 " open files quickly
 nnoremap <Leader>o :CtrlP<CR>
 
-" Switch between the last two files
+" toggle between the last two files
 nnoremap <leader><leader> <c-^>
 
 " move by vertical line
 nnoremap j gj
 nnoremap k gk
-
-" move to beginning and end of lines
-nnoremap B ^
-nnoremap E $
 
 " select last inserted text
 nnoremap gV `[v`]
@@ -229,11 +228,11 @@ set expandtab
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+" Quicker split pane movement
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
 
 " Always use vertical diffs
 set diffopt+=vertical
@@ -250,7 +249,7 @@ set nojoinspaces
 set colorcolumn=81
 
 " Treat <li> and <p> tags like the block tags they are
-let g:html_indent_inctags = "html,body,head,tbody,li,p" 
+let g:html_indent_inctags = "html,body,head,tbody,li,p"
 
 " Open new split panes to right and bottom
 set splitbelow
