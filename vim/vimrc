@@ -181,6 +181,9 @@ nnoremap gV `[v`]
 
 " gundo
 nnoremap <leader>u :GundoToggle<CR>
+
+" fix Y
+nnoremap Y y$
 " }}}
 
 " General settings {{{
@@ -190,6 +193,8 @@ let g:rehash256=1  " get the darker syntax for molokai
 colorscheme molokai
 
 set pastetoggle=<F2>
+
+set autoread
 
 set wildmenu
 set wildmode=longest:full,full
@@ -230,6 +235,7 @@ set expandtab
 set list listchars=tab:»·,trail:·,nbsp:·
 
 " Quicker split pane movement
+" Currently defined in vim-tmux-navigator plugin
 " nnoremap <C-j> <C-w>j
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-h> <C-w>h
