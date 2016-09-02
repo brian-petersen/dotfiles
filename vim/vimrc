@@ -10,10 +10,11 @@ let mapleader=" "
 call plug#begin('~/.vim/plugged')
 
 " tpope is a boss
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 
 " git diffs
