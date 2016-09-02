@@ -13,6 +13,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
@@ -25,8 +27,7 @@ Plug 'scrooloose/syntastic'
 " Plug 'neomake/neomake'
 
 " search everything
-" TODO find better searcher
-Plug 'eugen0329/vim-esearch'
+Plug 'mileszs/ack.vim'
 
 " get a pretty status bar
 Plug 'bling/vim-airline'
@@ -59,6 +60,9 @@ Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'tmhedberg/simpylfold'
 
+" Polyglot
+Plug 'sheerun/vim-polyglot'
+
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -85,9 +89,14 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 if executable('ag')
     " Use Ag over Grep
     set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use Ag for ctrlp searches
     let g:ctrlp_user_command='ag -Q -l --nocolor --hidden -g "" %s'
     let g:ctrlp_use_caching=0
 endif
+
+    " use Ag instead of ack
+    let g:ackprg = 'ag --vimgrep'
 " }}}
 
 " UltiSnips {{{
@@ -131,8 +140,8 @@ nnoremap <leader>ec :SyntasticCheck<CR>
 nnoremap <leader>er :SyntasticReset<CR>
 
 " Search
-call esearch#map('<leader>ss', 'esearch')
-call esearch#map('<leader>sw', 'esearch-word-under-cursor')
+nnoremap <Leader>ss :Ack!<Space>
+nnoremap <Leader>sw :Ack! <C-r><C-w>
 nnoremap <leader>sc :nohlsearch<CR>
 
 " File
@@ -157,8 +166,10 @@ nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 " Location list
 nnoremap <leader>lo :lopen<CR>
 nnoremap <leader>lc :lclose<CR>
-nnoremap <leader>ln :lnext<CR>
-nnoremap <leader>lp :lprevious<CR>
+
+" Location list
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>
 " }}}
 
 " Other Keybindings {{{
@@ -253,7 +264,7 @@ set undodir=~/.vim/undo//
 set nojoinspaces
 
 " Make it obvious where 80 characters is
-set colorcolumn=81
+set colorcolumn=80
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
