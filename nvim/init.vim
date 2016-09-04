@@ -1,16 +1,21 @@
+" Brian Petersen's init.vim
+
 " Initial {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=" "
 " }}}
 
-" Plugin list {{{
+" Plugin List {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/plugged')
 
 " tpope is a boss
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-unimpaired'
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
@@ -19,10 +24,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kien/ctrlp.vim'
 
 " syntax checker
-Plug 'neomake/neomake'
+" Plug 'scrooloose/syntastic'
+Plug 'neomake/neomake'  " neovim
 
 " search everything
-Plug 'eugen0329/vim-esearch'
+Plug 'mileszs/ack.vim'
 
 " get a pretty status bar
 Plug 'bling/vim-airline'
@@ -51,12 +57,27 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 
+" Python specific
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'tmhedberg/simpylfold'
+
+" Polyglot
+Plug 'sheerun/vim-polyglot'
+
+" Tmux
+" Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 " }}}
 
 " Plugin Configuration {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Neomake {{{
+" Syntastic {{{
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_check_on_wq=0
+" }}}
+
+" Neomake (neovim) {{{
 autocmd! BufWritePost,BufEnter * Neomake
 
 let g:neomake_warning_sign = {
@@ -70,18 +91,26 @@ let g:neomake_error_sign = {
     \ }
 " }}}
 
+" Airline {{{
+let g:airline#extensions#syntastic#enabled = 1
+" }}}
+
 " YouCompleteMe {{{
 let g:ycm_python_binary_path = 'python'
-
 let g:ycm_autoclose_preview_window_after_insertion=1
 " }}}
 
-" CtrlP {{{
+" Silver Searcher {{{
 if executable('ag')
     " Use Ag over Grep
     set grepprg=ag\ --nogroup\ --nocolor
+
+    " Use Ag for ctrlp searches
     let g:ctrlp_user_command='ag -Q -l --nocolor --hidden -g "" %s'
     let g:ctrlp_use_caching=0
+
+    " use Ag instead of ack
+    let g:ackprg = 'ag --vimgrep'
 endif
 " }}}
 
@@ -106,24 +135,30 @@ let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 " }}}
+
+" Simpyl Folding {{{
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+" }}}
 " }}}
 
 " Keybindings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Global toggles
+nnoremap <leader>ts :SyntasticToggleMode<CR>
 nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
 
 " Errors
+" nnoremap <leader>ec :SyntasticCheck<CR>
+" nnoremap <leader>er :SyntasticReset<CR>
+" neovim specific
 nnoremap <leader>ec :Neomake<CR>
-nnoremap <leader>el :lopen<CR>
-nnoremap <leader>en :lnext<CR>
-nnoremap <leader>ep :lprevious<CR>
 
 " Search
-call esearch#map('<leader>ss', 'esearch')
-call esearch#map('<leader>sw', 'esearch-word-under-cursor')
+nnoremap <Leader>ss :Ack!<Space>
+nnoremap <Leader>sw :Ack! <C-r><C-w>
 nnoremap <leader>sc :nohlsearch<CR>
 
 " File
@@ -135,31 +170,41 @@ nmap <Leader>fl :NERDTreeToggle<CR>
 " Delete
 nnoremap <Leader>dt :%s/\s\+$//<CR>
 
+" Tabs
+nnoremap <leader>Tn :tabnew<CR>
+nnoremap <leader>Tc :tabclose<CR>
+nnoremap <leader>To :tabonly<CR>
+
 " Goto
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+
+" Location list
+nnoremap <leader>lo :lopen<CR>
+nnoremap <leader>lc :lclose<CR>
+
+" Location list
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>
 " }}}
 
 " Other Keybindings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " exit insert mode quickly
 imap fd <Esc>
+" neovim specific
 tmap fd <C-\><C-n>
 
 " open files quickly
 nnoremap <Leader>o :CtrlP<CR>
 
-" Switch between the last two files
+" toggle between the last two files
 nnoremap <leader><leader> <c-^>
 
 " move by vertical line
 nnoremap j gj
 nnoremap k gk
-
-" move to beginning and end of lines
-nnoremap B ^
-nnoremap E $
 
 " select last inserted text
 nnoremap gV `[v`]
@@ -167,11 +212,23 @@ nnoremap gV `[v`]
 " gundo
 nnoremap <leader>u :GundoToggle<CR>
 
-" Quicker window movement
+" fix Y
+nnoremap Y y$
+
+" Quicker split pane movement
+" Currently defined in vim-tmux-navigator plugin
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+" neovim specific
+" tnoremap <C-h> <C-\><C-n><C-w>h
+" tnoremap <C-j> <C-\><C-n><C-w>j
+" tnoremap <C-k> <C-\><C-n><C-w>k
+" tnoremap <C-l> <C-\><C-n><C-w>l
+if has('nvim')
+     nmap <BS> <C-w>h
+ endif
 " }}}
 
 " General settings {{{
@@ -182,13 +239,19 @@ colorscheme molokai
 
 set pastetoggle=<F2>
 
-set wildmenu
+" set autoread
+
+" set wildmenu
+set wildmode=longest:full,full
+
 set lazyredraw
 set showmatch
 
+set cursorline
+
 set foldenable
-set foldmethod=indent
-set foldlevel=99
+set foldmethod=syntax
+set foldlevel=99  " open files with folds open
 
 set ignorecase
 set smartcase
@@ -206,7 +269,7 @@ set relativenumber
 set numberwidth=5
 
 " Sane tab settings
-set autoindent
+" set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -220,22 +283,30 @@ set list listchars=tab:»·,trail:·,nbsp:·
 set diffopt+=vertical
 
 " Centralize swap, backup and undo files
-set backupdir=~/.config/nvim/backup//
-set directory=~/.config/nvim/swap//
-set undodir=~/.config/nvim/undo//
+" set backupdir=~/.vim/backup//
+" set directory=~/.vim/swap//
+" set undodir=~/.vim/undo//
+set backupdir=~/.config/nvim/backup//  " neovim
+set directory=~/.config/nvim/swap//  " neovim
+set undodir=~/.config/nvim/undo//  " neovim
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
 
 " Make it obvious where 80 characters is
-set colorcolumn=81
+set colorcolumn=80
 
 " Treat <li> and <p> tags like the block tags they are
-let g:html_indent_inctags = "html,body,head,tbody,li,p" 
+let g:html_indent_inctags = "html,body,head,tbody,li,p"
 
 " Open new split panes to right and bottom
 set splitbelow
 set splitright
 " }}}
+
+" Source local vimrc
+" if filereadable(glob("~/.vimrc.local"))
+"     source ~/.vimrc.local
+" endif
 
 " vim: set foldmethod=marker foldlevel=0:
