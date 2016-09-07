@@ -14,11 +14,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
+
+" detect indent
+Plug 'ciaranm/detectindent'
 
 " search for project files
 Plug 'kien/ctrlp.vim'
@@ -92,7 +94,7 @@ let g:neomake_error_sign = {
 " }}}
 
 " Airline {{{
-let g:airline#extensions#syntastic#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 " }}}
 
 " YouCompleteMe {{{
@@ -140,12 +142,16 @@ let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 " }}}
+
+" DetectIndent {{{
+let g:detectindent_preferred_when_mixed=1
+" }}}
 " }}}
 
 " Keybindings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Global toggles
-nnoremap <leader>ts :SyntasticToggleMode<CR>
+" nnoremap <leader>ts :SyntasticToggleMode<CR>
 nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
@@ -269,12 +275,13 @@ set relativenumber
 set numberwidth=5
 
 " Sane tab settings
-" set autoindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
+set autoindent  " match current line with o of O
+set smartindent " do so smartly
 set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=-1 " negative so shiftwidth is used
+set shiftround     " round to multiples of shiftwidth
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
