@@ -69,6 +69,10 @@ Plug 'sheerun/vim-polyglot'
 " Tmux
 " Plug 'christoomey/vim-tmux-navigator'
 
+" Notes
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+
 call plug#end()
 " }}}
 
@@ -145,6 +149,11 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 " DetectIndent {{{
 let g:detectindent_preferred_when_mixed=1
+" }}}
+
+" Notes {{{
+let g:notes_directories = ['~/Dropbox/Notes']
+let g:notes_suffix = '.txt'
 " }}}
 " }}}
 
