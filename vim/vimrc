@@ -7,7 +7,7 @@ let mapleader=" "
 
 " Plugin List {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 
 " tpope is a boss
 Plug 'tpope/vim-fugitive'
