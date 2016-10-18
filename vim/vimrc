@@ -27,7 +27,6 @@ Plug 'kien/ctrlp.vim'
 
 " syntax checker
 Plug 'scrooloose/syntastic'
-" Plug 'neomake/neomake'  " neovim
 
 " search everything
 Plug 'mileszs/ack.vim'
@@ -80,20 +79,6 @@ call plug#end()
 " Syntastic {{{
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_wq=0
-" }}}
-
-" Neomake (neovim) {{{
-" autocmd! BufWritePost,BufEnter * Neomake
-
-" let g:neomake_warning_sign = {
-"     \ 'text': 'W',
-"     \ 'texthl': 'WarningMsg',
-"     \ }
-
-" let g:neomake_error_sign = {
-"     \ 'text': 'E',
-"     \ 'texthl': 'ErrorMsg',
-"     \ }
 " }}}
 
 " Airline {{{
@@ -167,8 +152,6 @@ nmap <leader>tl :set list!<CR>
 " Errors
 nnoremap <leader>ec :SyntasticCheck<CR>
 nnoremap <leader>er :SyntasticReset<CR>
-" neovim specific
-" nnoremap <leader>ec :Neomake<CR>
 
 " Search
 nnoremap <Leader>ss :Ack!<Space>
@@ -207,8 +190,6 @@ nnoremap <leader>qc :cclose<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " exit insert mode quickly
 imap fd <Esc>
-" neovim specific
-" tmap fd <C-\><C-n>
 
 " open files quickly
 nnoremap <Leader>o :CtrlP<CR>
@@ -235,11 +216,6 @@ nnoremap Y y$
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-l> <C-w>l
-
-" neovim specific
-" if has('nvim')
-"      nmap <BS> <C-w>h
-" endif
 " }}}
 
 " General settings {{{
@@ -298,9 +274,6 @@ set diffopt+=vertical
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
-" set backupdir=~/.config/nvim/backup//  " neovim
-" set directory=~/.config/nvim/swap//  " neovim
-" set undodir=~/.config/nvim/undo//  " neovim
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
