@@ -135,6 +135,8 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let g:detectindent_preferred_when_mixed=1
 " }}}
 
+" }}}
+
 " Keybindings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Global toggles
