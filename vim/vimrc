@@ -44,7 +44,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'tmhedberg/matchit'
 
 " make it pretty
-Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
 
 " visualize undo
 Plug 'sjl/gundo.vim'
@@ -221,8 +221,8 @@ nnoremap Y y$
 " General settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
-let g:rehash256=1  " get the darker syntax for molokai
-colorscheme molokai
+set background=dark
+colorscheme solarized
 
 set pastetoggle=<F2>
 
