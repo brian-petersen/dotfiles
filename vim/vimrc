@@ -44,7 +44,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'tmhedberg/matchit'
 
 " make it pretty
-Plug 'crusoexia/vim-monokai'
+Plug 'dikiaap/minimalist'
 
 " visualize undo
 Plug 'sjl/gundo.vim'
@@ -216,10 +216,9 @@ nnoremap Y y$
 
 " General settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable
-set background=dark
-colorscheme monokai
 set t_Co=256
+syntax on
+colorscheme minimalist
 
 set pastetoggle=<F2>
 
