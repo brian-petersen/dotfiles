@@ -217,9 +217,6 @@ nnoremap Y y$
 
 " General settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" set t_Co=256
-" syntax on
-" colorscheme minimalist
 syntax on
 color dracula
 
