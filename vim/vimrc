@@ -45,6 +45,7 @@ Plug 'tmhedberg/matchit'
 
 " make it pretty
 Plug 'dikiaap/minimalist'
+Plug 'dracula/vim'
 
 " visualize undo
 Plug 'sjl/gundo.vim'
@@ -216,9 +217,11 @@ nnoremap Y y$
 
 " General settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256
+" set t_Co=256
+" syntax on
+" colorscheme minimalist
 syntax on
-colorscheme minimalist
+color dracula
 
 set pastetoggle=<F2>
 
