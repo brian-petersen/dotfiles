@@ -56,7 +56,8 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 " autocomplete
-Plug 'Valloric/YouCompleteMe'
+Plug 'ajh17/VimCompletesMe'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -71,7 +72,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Autoclose
-Plug 'https://github.com/jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
+
+" Clipboard
+Plug 'kana/vim-fakeclip'
 
 call plug#end()
 
@@ -86,8 +90,8 @@ let g:syntastic_check_on_wq=0
 let g:airline#extensions#syntastic#enabled = 1
 
 " YouCompleteMe
-let g:ycm_python_binary_path = 'python'
-let g:ycm_autoclose_preview_window_after_insertion=1
+" let g:ycm_python_binary_path = 'python'
+" let g:ycm_autoclose_preview_window_after_insertion=1
 
 " Silver Searcher
 if executable('ag')
@@ -161,9 +165,9 @@ nnoremap <leader>Tc :tabclose<CR>
 nnoremap <leader>To :tabonly<CR>
 
 " Goto
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+" nnoremap <leader>gg :YcmCompleter GoTo<CR>
+" nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+" nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 
 " Location list
 nnoremap <leader>lo :lopen<CR>
@@ -208,7 +212,7 @@ nnoremap Y y$
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-l> <C-w>l
-"
+
 
 " General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -265,9 +269,9 @@ set list listchars=tab:»·,trail:·,nbsp:·
 set diffopt+=vertical
 
 " Centralize swap, backup and undo files
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
+set undodir=~/.vim/undo/
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
