@@ -7,3 +7,8 @@ vim/backup/
 vim/swap/
 vim/undo/
 vim/plugged/
+
+nvim/backup/
+nvim/swap/
+nvim/undo/
+nvim/plugged/
