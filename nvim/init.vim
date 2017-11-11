@@ -49,7 +49,7 @@ Plug 'sjl/gundo.vim'
 
 " autocomplete
 Plug 'Shougo/deoplete.nvim'
-Plug 'zchee/deoplete-clang'
+Plug 'tweekmonster/deoplete-clang2'
 Plug 'zchee/deoplete-jedi'
 
 Plug 'SirVer/ultisnips'
