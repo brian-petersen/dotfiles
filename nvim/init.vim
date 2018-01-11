@@ -265,6 +265,6 @@ set splitbelow
 set splitright
 
 " Source local vimrc
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
+if filereadable(glob("~/.nvim.local"))
+    source ~/.nvim.local
 endif
