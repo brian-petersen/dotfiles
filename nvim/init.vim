@@ -1,6 +1,3 @@
-" Brian Petersen's init.vim
-
-
 " Initial
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=" "
@@ -11,7 +8,7 @@ let mapleader=" "
 call plug#begin('~/.config/nvim/plugged')
 
 " tpope is a boss
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
@@ -35,30 +32,29 @@ Plug 'mileszs/ack.vim'
 " get a pretty status bar
 Plug 'bling/vim-airline'
 
-" " get file browser
-" Plug 'scrooloose/nerdtree'
-
 " match html elements
 Plug 'tmhedberg/matchit'
 
 " make it pretty
 Plug 'MaxSt/FlatColor'
 
-" " visualize undo
+" visualize undo
 Plug 'sjl/gundo.vim'
+
+" emmett
+Plug 'mattn/emmet-vim'
 
 " autocomplete
 Plug 'Shougo/deoplete.nvim'
-Plug 'tweekmonster/deoplete-clang2'
+Plug 'carlitux/deoplete-ternjs'
 Plug 'zchee/deoplete-jedi'
+
+Plug 'rhysd/devdocs.vim'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'ervandew/supertab'
-
-" Python specific
-Plug 'hynek/vim-python-pep8-indent'
 
 " Polyglot (syntax stuff)
 Plug 'sheerun/vim-polyglot'
@@ -66,12 +62,11 @@ Plug 'sheerun/vim-polyglot'
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
-" Autoclose
-" Plug 'jiangmiao/auto-pairs'
-
 " Clipboard
-" Plug 'cazador481/fakeclip.neovim'
 Plug 'kana/vim-fakeclip'
+
+" Other
+Plug 'posva/vim-vue'
 
 call plug#end()
 
@@ -103,9 +98,6 @@ let g:UltiSnipsListSnippets = "<c-k>"
 " deoplete
 let g:deoplete#enable_at_startup=1
 
-let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header='/usr/lib/clang/'
-
 " DetectIndent
 let g:detectindent_preferred_when_mixed=1
 
@@ -130,7 +122,6 @@ nnoremap <leader>sc :nohlsearch<CR>
 nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fed :vsp $MYVIMRC<CR>
 nnoremap <Leader>feR :source $MYVIMRC<CR>
-" nmap <Leader>fl :NERDTreeToggle<CR>
 
 " Delete
 nnoremap <Leader>dt :%s/\s\+$//<CR>
@@ -139,11 +130,6 @@ nnoremap <Leader>dt :%s/\s\+$//<CR>
 nnoremap <leader>Tn :tabnew<CR>
 nnoremap <leader>Tc :tabclose<CR>
 nnoremap <leader>To :tabonly<CR>
-
-" Goto
-" nnoremap <leader>gg :YcmCompleter GoTo<CR>
-" nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-" nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 
 " Location list
 nnoremap <leader>lo :lopen<CR>
@@ -181,14 +167,6 @@ nnoremap <leader>u :GundoToggle<CR>
 
 " fix Y
 nnoremap Y y$
-
-" Quicker split pane movement
-" tmux plugin handles these
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-l> <C-w>l
-
 
 " General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -245,11 +223,6 @@ set list listchars=tab:»·,trail:·,nbsp:·
 
 " Always use vertical diffs
 set diffopt+=vertical
-
-" Centralize swap, backup and undo files
-" set backupdir=~/.vim/backup/
-" set directory=~/.vim/swap/
-" set undodir=~/.vim/undo/
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
