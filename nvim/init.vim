@@ -29,14 +29,12 @@ Plug 'w0rp/ale'
 " search everything
 Plug 'mileszs/ack.vim'
 
-" get a pretty status bar
+" make it pretty
+Plug 'junegunn/seoul256.vim'
 Plug 'bling/vim-airline'
 
 " match html elements
 Plug 'tmhedberg/matchit'
-
-" make it pretty
-Plug 'MaxSt/FlatColor'
 
 " visualize undo
 Plug 'sjl/gundo.vim'
@@ -67,6 +65,8 @@ Plug 'kana/vim-fakeclip'
 
 " Other
 Plug 'posva/vim-vue'
+
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
@@ -173,8 +173,8 @@ nnoremap Y y$
 set nocompatible
 
 syntax on
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-color flatcolor
+
+colorscheme seoul256
 
 set backspace=indent,eol,start
 
