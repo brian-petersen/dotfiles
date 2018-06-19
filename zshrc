@@ -52,11 +52,6 @@ plugins=(git)
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Include local configs if necessary
-if [[ -a $HOME/.zshrc.local ]]; then
-    source $HOME/.zshrc.local
-fi
-
 source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
@@ -73,3 +68,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Include local configs if necessary
+if [[ -a $HOME/.zshrc.local ]]; then
+    source $HOME/.zshrc.local
+fi
