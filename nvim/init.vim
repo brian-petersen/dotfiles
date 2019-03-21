@@ -8,19 +8,16 @@ let mapleader=" "
 call plug#begin('~/.config/nvim/plugged')
 
 " tpope is a boss
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-commentary'
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
-
-" detect indent
-" Plug 'ciaranm/detectindent'
 
 " search for project files
 Plug 'kien/ctrlp.vim'
@@ -32,24 +29,14 @@ Plug 'w0rp/ale'
 Plug 'mileszs/ack.vim'
 
 " make it pretty
-Plug 'junegunn/seoul256.vim'
+Plug 'nanotech/jellybeans.vim'
 Plug 'bling/vim-airline'
 
-" match html elements
-Plug 'tmhedberg/matchit'
-
-" visualize undo
-Plug 'sjl/gundo.vim'
-
-" emmett
-Plug 'mattn/emmet-vim'
-
 " autocomplete
-Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neco-syntax'
-Plug 'wellle/tmux-complete.vim'
-Plug 'wokalski/autocomplete-flow'
+Plug 'slashmili/alchemist.vim'
+
+Plug 'Shougo/echodoc.vim'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -64,11 +51,6 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Clipboard
 Plug 'kana/vim-fakeclip'
-
-" Other
-Plug 'editorconfig/editorconfig-vim'
-
-Plug 'terryma/vim-multiple-cursors'
 
 call plug#end()
 
@@ -99,9 +81,6 @@ let g:UltiSnipsListSnippets = "<c-k>"
 
 " deoplete
 let g:deoplete#enable_at_startup=1
-
-" DetectIndent
-" let g:detectindent_preferred_when_mixed=1
 
 
 " Keybindings
@@ -164,9 +143,6 @@ nnoremap k gk
 " select last inserted text
 nnoremap gV `[v`]
 
-" gundo
-nnoremap <leader>u :GundoToggle<CR>
-
 " fix Y
 nnoremap Y y$
 
@@ -176,7 +152,7 @@ set nocompatible
 
 syntax on
 
-colorscheme seoul256
+colorscheme jellybeans
 
 set backspace=indent,eol,start
 
