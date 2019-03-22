@@ -20,7 +20,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'airblade/vim-gitgutter'
 
 " search for project files
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " syntax checker
 Plug 'w0rp/ale'
@@ -30,18 +31,14 @@ Plug 'mileszs/ack.vim'
 
 " make it pretty
 Plug 'nanotech/jellybeans.vim'
-Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " autocomplete
 Plug 'Shougo/deoplete.nvim'
 Plug 'slashmili/alchemist.vim'
 
-Plug 'Shougo/echodoc.vim'
-
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-Plug 'ervandew/supertab'
 
 " Polyglot (syntax stuff)
 Plug 'sheerun/vim-polyglot'
@@ -52,22 +49,26 @@ Plug 'christoomey/vim-tmux-navigator'
 " Clipboard
 Plug 'kana/vim-fakeclip'
 
+" Writing
+Plug 'junegunn/goyo.vim'
+Plug 'reedes/vim-pencil'
+
+" Test
+Plug 'janko/vim-test'
+Plug 'tpope/vim-dispatch'
+
+" Other
+Plug 'terryma/vim-multiple-cursors'
+
 call plug#end()
 
 
 " Plugin Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Airline
-let g:airline#extensions#ale#enabled = 1
-
 " Silver Searcher
 if executable('ag')
     " Use Ag over Grep
     set grepprg=ag\ --nogroup\ --nocolor
-
-    " Use Ag for ctrlp searches
-    let g:ctrlp_user_command='ag -Q -l --nocolor --hidden -g "" %s'
-    let g:ctrlp_use_caching=0
 
     " use Ag instead of ack
     let g:ackprg = 'ag --vimgrep'
@@ -82,21 +83,50 @@ let g:UltiSnipsListSnippets = "<c-k>"
 " deoplete
 let g:deoplete#enable_at_startup=1
 
+" Lightline
+let g:lightline = {
+            \ 'component_function': {
+            \   'filename': 'LightlineFilename',
+            \ }
+            \ }
+
+function! LightlineFilename()
+    let root = fnamemodify(get(b:, 'git_dir'), ':h')
+    let path = expand('%:p')
+
+    if path[:len(root)-1] ==# root
+        return path[len(root)+1:]
+    endif
+
+    return expand('%')
+endfunction
+
+" Testing
+let test#strategy = "dispatch"
+
 
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Global toggles
+" Toggles
 nnoremap <leader>ts :ALEToggle<CR>
+nnoremap <leader>tg :Goyo<CR>
+nnoremap <leader>tp :PencilToggle<CR>
 nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
+
+" Open
+nnoremap <leader>of :Files<CR>
+nnoremap <leader>ob :Buffers<CR>
+nnoremap <leader>ot :Tags<CR>
+nnoremap <leader>os :Snippets<CR>
 
 " Errors
 nnoremap <leader>ec :ALELint<CR>
 
 " Search
-nnoremap <Leader>ss :Ack!<Space>
-nnoremap <Leader>sw :Ack! <C-r><C-w>
+nnoremap <Leader>ss :Ag<Space>
+nnoremap <Leader>sw :Ag <C-r><C-w><CR>
 nnoremap <leader>sc :nohlsearch<CR>
 
 " File
@@ -120,69 +150,76 @@ nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qc :cclose<CR>
 
-" Ctrlp mode
-nnoremap <leader>pg :let g:ctrlp_working_path_mode = 'ra'<CR>
-nnoremap <leader>pw :let g:ctrlp_working_path_mode = 'w'<CR>
 
-
-" Other Keybindings
+" Miscellaneous Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" exit insert mode quickly
+" Open :ex lazily (shift is hard to reach sometimes)
+nmap <leader>; :
+
+" Exit insert mode quickly
 imap fd <Esc>
 
-" open files quickly
-nnoremap <Leader>o :CtrlP<CR>
-
-" toggle between the last two files
+" Toggle between the last two files
 nnoremap <leader><leader> <c-^>
 
-" move by vertical line
+" Move by vertical line
 nnoremap j gj
 nnoremap k gk
 
-" select last inserted text
+" Select last inserted text
 nnoremap gV `[v`]
 
-" fix Y
+" Fix Y
 nnoremap Y y$
 
 " General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-
 syntax on
-
 colorscheme jellybeans
 
+" Delete through these without weirdness
 set backspace=indent,eol,start
 
+" Toggle this mode to paste without auto formatting
 set pastetoggle=<F2>
 
+" Auto reload file when changed outside of vim
 set autoread
 
+" Show possible options while typing in :ex
 set wildmenu
 set wildmode=longest:full,full
 
+" Postpone redrawing with macros, etc.
 set lazyredraw
+
+" Highlight matching bracket
 set showmatch
 
+" Highlight the current line
 set cursorline
 
+" Folding
 set foldenable
 set foldmethod=syntax
 set foldlevel=99  " open files with folds open
 
+" Search options
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch
 
+" Provide spacing at beginning and ends of files
 set scrolloff=3
-set ruler
-set showcmd
-set laststatus=2
 
-" Numbers
+" Show line:col in status bar
+set ruler
+
+" Show previous command in :ex
+set showcmd
+
+" Line numbers
 set number
 set relativenumber
 set numberwidth=5
@@ -206,7 +243,7 @@ set diffopt+=vertical
 set nojoinspaces
 
 " Make it obvious where 80 characters is
-set colorcolumn=120
+set colorcolumn=80
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
@@ -214,9 +251,6 @@ let g:html_indent_inctags = "html,body,head,tbody,li,p"
 " Open new split panes to right and bottom
 set splitbelow
 set splitright
-
-" Other
-set cmdheight=2
 
 " Source local vimrc
 if filereadable(glob("~/.nvim.local"))
