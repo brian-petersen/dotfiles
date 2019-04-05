@@ -8,13 +8,13 @@ let mapleader=" "
 call plug#begin('~/.config/nvim/plugged')
 
 " tpope is a boss
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-sensible'  " sensible defaults
+Plug 'tpope/vim-fugitive'  " git wrapper
+Plug 'tpope/vim-surround'  " surrounding characters
+Plug 'tpope/vim-commentary'  " comment out things
+Plug 'tpope/vim-unimpaired'  " additional ] and [ related keybindings
+Plug 'tpope/vim-repeat'  " repeat last command
+Plug 'tpope/vim-sleuth'  " auto indent detection
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
@@ -23,42 +23,41 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-" syntax checker
-Plug 'w0rp/ale'
-
 " search everything
 Plug 'mileszs/ack.vim'
 
 " make it pretty
-Plug 'nanotech/jellybeans.vim'
-Plug 'itchyny/lightline.vim'
+Plug 'nanotech/jellybeans.vim'  " syntax theme
+Plug 'itchyny/lightline.vim'  " pretty status bar
 
 " autocomplete
-Plug 'Shougo/deoplete.nvim'
-Plug 'slashmili/alchemist.vim'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
-" Polyglot (syntax stuff)
-Plug 'sheerun/vim-polyglot'
+" Polyglot
+Plug 'sheerun/vim-polyglot'  " latest syntax grammars
 
 " Tmux
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'  " navigate to tmux panes
 
 " Clipboard
-Plug 'kana/vim-fakeclip'
+Plug 'kana/vim-fakeclip'  " use system clipboard properly (WSL, macOS, etc.)
 
 " Writing
-Plug 'junegunn/goyo.vim'
-Plug 'reedes/vim-pencil'
+Plug 'junegunn/goyo.vim'  " distraction free editing
+Plug 'reedes/vim-pencil'  " wrap lines automatically
 
 " Test
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 
 " Other
-Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'  " multiple cursors
+Plug 'scrooloose/nerdtree'  " file explorer panel
+Plug 'nathanaelkane/vim-indent-guides'  " indent guides
+Plug 'drmingdrmer/vim-toggle-quickfix'  " toggle quickfix and location listsr
 
 call plug#end()
 
@@ -67,88 +66,107 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Silver Searcher
 if executable('ag')
-    " Use Ag over Grep
-    set grepprg=ag\ --nogroup\ --nocolor
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-    " use Ag instead of ack
-    let g:ackprg = 'ag --vimgrep'
+  " use Ag instead of ack
+  let g:ackprg = 'ag --vimgrep'
 endif
-
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsListSnippets = "<c-k>"
-
-" deoplete
-let g:deoplete#enable_at_startup=1
 
 " Lightline
 let g:lightline = {
-            \ 'component_function': {
-            \   'filename': 'LightlineFilename',
-            \ }
-            \ }
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ }
+      \ }
 
 function! LightlineFilename()
-    let root = fnamemodify(get(b:, 'git_dir'), ':h')
-    let path = expand('%:p')
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
 
-    if path[:len(root)-1] ==# root
-        return path[len(root)+1:]
-    endif
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
 
-    return expand('%')
+  return expand('%')
 endfunction
 
 " Testing
 let test#strategy = "dispatch"
 
+" CoC
+autocmd CursorHold * silent call CocActionAsync('highlight')  " Highlight symbol under cursor on CursorHold
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+" Old habbits die hard
+nnoremap <leader>p :Files<CR>
+
 " Toggles
-nnoremap <leader>ts :ALEToggle<CR>
-nnoremap <leader>tg :Goyo<CR>
-nnoremap <leader>tp :PencilToggle<CR>
 nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
 
-" Open
-nnoremap <leader>of :Files<CR>
-nnoremap <leader>ob :Buffers<CR>
-nnoremap <leader>ot :Tags<CR>
-nnoremap <leader>os :Snippets<CR>
+nnoremap <leader>tg :Goyo<CR>
+nnoremap <leader>tp :PencilToggle<CR>
+nnoremap <leader>ti :IndentGuidesToggle<CR>
 
-" Errors
-nnoremap <leader>ec :ALELint<CR>
+nmap <leader>tq <Plug>(window:quickfix:toggle)
+nmap <leader>tl <Plug>(window:location:toggle)
+
+" List
+nnoremap <leader>lb :Buffers<CR>
+nnoremap <leader>lt :Tags<CR>
+
+nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 
 " Search
-nnoremap <Leader>ss :Ag<Space>
-nnoremap <Leader>sw :Ag <C-r><C-w><CR>
+nnoremap <leader>ss :Ag<Space>
+nnoremap <leader>sw :Ag <C-r><C-w><CR>
 nnoremap <leader>sc :nohlsearch<CR>
 
 " File
-nnoremap <Leader>fs :w<CR>
-nnoremap <Leader>fed :vsp $MYVIMRC<CR>
-nnoremap <Leader>feR :source $MYVIMRC<CR>
+nnoremap <leader>fs :w<CR>
+nnoremap <leader>fed :vsp $MYVIMRC<CR>
+nnoremap <leader>feR :source $MYVIMRC<CR>
+nmap <leader>ff <Plug>(coc-format)
 
 " Delete
-nnoremap <Leader>dt :%s/\s\+$//<CR>
+nnoremap <leader>dt :%s/\s\+$//<CR>
 
 " Tabs
 nnoremap <leader>Tn :tabnew<CR>
 nnoremap <leader>Tc :tabclose<CR>
 nnoremap <leader>To :tabonly<CR>
 
-" Location list
-nnoremap <leader>lo :lopen<CR>
-nnoremap <leader>lc :lclose<CR>
+" Goto
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 
-" Quickfix list
-nnoremap <leader>qo :copen<CR>
-nnoremap <leader>qc :cclose<CR>
+" Refactor
+nmap <leader>rn <Plug>(coc-rename)
+
+" Completion/Intellisense
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Snippets
+imap <C-k> <Plug>(neosnippet_expand_or_jump)  
+
+" Navigate
+" nmap <silent> [c <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 
 " Miscellaneous Keybindings
@@ -171,6 +189,7 @@ nnoremap gV `[v`]
 
 " Fix Y
 nnoremap Y y$
+
 
 " General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -219,6 +238,9 @@ set ruler
 " Show previous command in :ex
 set showcmd
 
+" Better display for messages
+set cmdheight=2
+
 " Line numbers
 set number
 set relativenumber
@@ -252,7 +274,19 @@ let g:html_indent_inctags = "html,body,head,tbody,li,p"
 set splitbelow
 set splitright
 
+" If hidden is not set, TextEdit might fail
+set hidden
+
+" Smaller updatetime for CursorHold and CursorHoldI (for linting)
+set updatetime=300
+
+" Don't show |ins-completion-menu| messages
+set shortmess+=c
+
+" Always show signcolumns (git gutter, errors, etc.)
+set signcolumn=yes
+
 " Source local vimrc
 if filereadable(glob("~/.nvim.local"))
-    source ~/.nvim.local
+  source ~/.nvim.local
 endif
