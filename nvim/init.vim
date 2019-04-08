@@ -57,7 +57,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'terryma/vim-multiple-cursors'  " multiple cursors
 Plug 'scrooloose/nerdtree'  " file explorer panel
 Plug 'nathanaelkane/vim-indent-guides'  " indent guides
-Plug 'drmingdrmer/vim-toggle-quickfix'  " toggle quickfix and location listsr
+Plug 'shumphrey/fugitive-gitlab.vim'  " adds gitlab support in fugitive
 
 call plug#end()
 
@@ -105,6 +105,9 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Fugitive Gitlab
+let g:fugitive_gitlab_domains = ['https://git-p1ap1.divvy.co']
+
 
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -119,9 +122,6 @@ nmap <leader>tl :set list!<CR>
 nnoremap <leader>tg :Goyo<CR>
 nnoremap <leader>tp :PencilToggle<CR>
 nnoremap <leader>ti :IndentGuidesToggle<CR>
-
-nmap <leader>tq <Plug>(window:quickfix:toggle)
-nmap <leader>tl <Plug>(window:location:toggle)
 
 " List
 nnoremap <leader>lb :Buffers<CR>
