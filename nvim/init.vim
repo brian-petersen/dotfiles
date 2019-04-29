@@ -15,6 +15,7 @@ Plug 'tpope/vim-commentary'  " comment out things
 Plug 'tpope/vim-unimpaired'  " additional ] and [ related keybindings
 Plug 'tpope/vim-repeat'  " repeat last command
 Plug 'tpope/vim-sleuth'  " auto indent detection
+Plug 'tpope/vim-dispatch'  " asynchronous actions
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
@@ -30,11 +31,13 @@ Plug 'mileszs/ack.vim'
 Plug 'nanotech/jellybeans.vim'  " syntax theme
 Plug 'itchyny/lightline.vim'  " pretty status bar
 
-" autocomplete
+" IDE
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+
+Plug 'w0rp/ale'
 
 " Polyglot
 Plug 'sheerun/vim-polyglot'  " latest syntax grammars
@@ -47,17 +50,16 @@ Plug 'kana/vim-fakeclip'  " use system clipboard properly (WSL, macOS, etc.)
 
 " Writing
 Plug 'junegunn/goyo.vim'  " distraction free editing
-Plug 'reedes/vim-pencil'  " wrap lines automatically
 
 " Test
 Plug 'janko/vim-test'
-Plug 'tpope/vim-dispatch'
 
 " Other
 Plug 'terryma/vim-multiple-cursors'  " multiple cursors
 Plug 'scrooloose/nerdtree'  " file explorer panel
 Plug 'nathanaelkane/vim-indent-guides'  " indent guides
 Plug 'shumphrey/fugitive-gitlab.vim'  " adds gitlab support in fugitive
+Plug 'kassio/neoterm'  " smart neoterminal usage
 
 call plug#end()
 
@@ -67,7 +69,8 @@ call plug#end()
 " Silver Searcher
 if executable('ag')
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c%m
 
   " use Ag instead of ack
   let g:ackprg = 'ag --vimgrep'
@@ -92,7 +95,9 @@ function! LightlineFilename()
 endfunction
 
 " Testing
-let test#strategy = "dispatch"
+let g:neoterm_default_mod = "rightbelow"
+let g:neoterm_size = 15
+let g:neoterm_autoscroll = 1
 
 " CoC
 autocmd CursorHold * silent call CocActionAsync('highlight')  " Highlight symbol under cursor on CursorHold
@@ -112,16 +117,17 @@ let g:fugitive_gitlab_domains = ['https://git-p1ap1.divvy.co']
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Old habbits die hard
-nnoremap <leader>p :Files<CR>
+nnoremap <leader>p :GFiles<CR>
 
 " Toggles
 nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
 
+nnoremap <leader>ts :ALEToggle<CR>
 nnoremap <leader>tg :Goyo<CR>
-nnoremap <leader>tp :PencilToggle<CR>
 nnoremap <leader>ti :IndentGuidesToggle<CR>
+nnoremap <leader>tt :Ttoggle<CR>
 
 " List
 nnoremap <leader>lb :Buffers<CR>
@@ -130,8 +136,8 @@ nnoremap <leader>lt :Tags<CR>
 nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 
 " Search
-nnoremap <leader>ss :Ag<Space>
-nnoremap <leader>sw :Ag <C-r><C-w><CR>
+nnoremap <leader>ss :Ack<Space>
+nnoremap <leader>sw :Ack <C-r><C-w><CR>
 nnoremap <leader>sc :nohlsearch<CR>
 
 " File
@@ -168,6 +174,10 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 " nmap <silent> [c <Plug>(coc-diagnostic-prev)
 " nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
+" Testing
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-b> :TestFile<CR>
+nmap <silent> t<C-l> :TestLast<CR>
 
 " Miscellaneous Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
