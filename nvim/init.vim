@@ -32,10 +32,13 @@ Plug 'nanotech/jellybeans.vim'  " syntax theme
 Plug 'itchyny/lightline.vim'  " pretty status bar
 
 " IDE
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 
 Plug 'w0rp/ale'
 
@@ -50,6 +53,10 @@ Plug 'kana/vim-fakeclip'  " use system clipboard properly (WSL, macOS, etc.)
 
 " Writing
 Plug 'junegunn/goyo.vim'  " distraction free editing
+
+" Markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " Test
 Plug 'janko/vim-test'
@@ -95,24 +102,19 @@ function! LightlineFilename()
 endfunction
 
 " Testing
+let test#strategy = "neoterm"
+
 let g:neoterm_default_mod = "rightbelow"
 let g:neoterm_size = 15
 let g:neoterm_autoscroll = 1
 
-" CoC
-autocmd CursorHold * silent call CocActionAsync('highlight')  " Highlight symbol under cursor on CursorHold
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Fugitive Gitlab
-let g:fugitive_gitlab_domains = ['https://git-p1ap1.divvy.co']
-
+" Neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,8 +135,6 @@ nnoremap <leader>tt :Ttoggle<CR>
 nnoremap <leader>lb :Buffers<CR>
 nnoremap <leader>lt :Tags<CR>
 
-nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
-
 " Search
 nnoremap <leader>ss :Ack<Space>
 nnoremap <leader>sw :Ack <C-r><C-w><CR>
@@ -144,7 +144,6 @@ nnoremap <leader>sc :nohlsearch<CR>
 nnoremap <leader>fs :w<CR>
 nnoremap <leader>fed :vsp $MYVIMRC<CR>
 nnoremap <leader>feR :source $MYVIMRC<CR>
-nmap <leader>ff <Plug>(coc-format)
 
 " Delete
 nnoremap <leader>dt :%s/\s\+$//<CR>
@@ -154,25 +153,10 @@ nnoremap <leader>Tn :tabnew<CR>
 nnoremap <leader>Tc :tabclose<CR>
 nnoremap <leader>To :tabonly<CR>
 
-" Goto
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-
-" Refactor
-nmap <leader>rn <Plug>(coc-rename)
-
 " Completion/Intellisense
-inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Snippets
-imap <C-k> <Plug>(neosnippet_expand_or_jump)  
-
-" Navigate
-" nmap <silent> [c <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Testing
 nmap <silent> t<C-n> :TestNearest<CR>
