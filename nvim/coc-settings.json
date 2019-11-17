@@ -1,8 +1,2 @@
 {
-  "languageserver": {
-    "elixirLS": {
-      "command": "elixir-ls",
-      "filetypes": ["elixir", "eelixir"]
-    }
-  }
 }

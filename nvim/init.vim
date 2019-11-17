@@ -28,19 +28,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 
 " make it pretty
-Plug 'nanotech/jellybeans.vim'  " syntax theme
+Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'  " pretty status bar
 
 " IDE
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
-Plug 'elixir-editors/vim-elixir'
-Plug 'slashmili/alchemist.vim'
-
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " Polyglot
 Plug 'sheerun/vim-polyglot'  " latest syntax grammars
@@ -85,10 +79,17 @@ endif
 
 " Lightline
 let g:lightline = {
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ }
-      \ }
+  \   'active': {
+  \     'left': [
+  \       ['mode', 'paste'],
+  \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \     ]
+  \   },
+  \   'component_function': {
+  \     'filename': 'LightlineFilename',
+  \     'gitbranch': 'fugitive#head'
+  \   }
+  \ }
 
 function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -101,6 +102,12 @@ function! LightlineFilename()
   return expand('%')
 endfunction
 
+let g:lightline.tabline = {
+  \    'left': [ ['tabs'] ],
+  \    'right': []
+  \  }
+set guioptions-=e
+
 " Testing
 let test#strategy = "neoterm"
 
@@ -109,12 +116,12 @@ let g:neoterm_size = 15
 let g:neoterm_autoscroll = 1
 
 " Deoplete
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " Neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
+" imap <C-k> <Plug>(neosnippet_expand_or_jump)
+" smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -126,7 +133,7 @@ nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
 
-nnoremap <leader>ts :ALEToggle<CR>
+" nnoremap <leader>ts :ALEToggle<CR>
 nnoremap <leader>tg :Goyo<CR>
 nnoremap <leader>ti :IndentGuidesToggle<CR>
 nnoremap <leader>tt :Ttoggle<CR>
@@ -154,9 +161,20 @@ nnoremap <leader>Tc :tabclose<CR>
 nnoremap <leader>To :tabonly<CR>
 
 " Completion/Intellisense
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <c-space> coc#refresh()
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Testing
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -188,7 +206,8 @@ nnoremap Y y$
 " General settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
-colorscheme jellybeans
+set termguicolors
+colorscheme gruvbox
 
 " Delete through these without weirdness
 set backspace=indent,eol,start
@@ -259,7 +278,7 @@ set diffopt+=vertical
 set nojoinspaces
 
 " Make it obvious where 80 characters is
-set colorcolumn=80
+" set colorcolumn=80
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
