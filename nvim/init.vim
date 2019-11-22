@@ -303,3 +303,11 @@ set signcolumn=yes
 if filereadable(glob("~/.nvim.local"))
   source ~/.nvim.local
 endif
+
+
+" Autogroups
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup saving
+  autocmd!
+  autocmd BufWritePost * echo "ETC?"
+augroup end
