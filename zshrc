@@ -69,6 +69,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Add ~/bin to path if it exists
+if [ -d $HOME/bin ]; then
+    export PATH=$PATH:$HOME/bin
+fi
+
 # Include local configs if necessary
 if [[ -a $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
