@@ -34,8 +34,6 @@ Plug 'itchyny/lightline.vim'  " pretty status bar
 " IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'w0rp/ale'
-
 " Polyglot
 Plug 'sheerun/vim-polyglot'  " latest syntax grammars
 
