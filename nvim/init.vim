@@ -16,6 +16,7 @@ Plug 'tpope/vim-unimpaired'  " additional ] and [ related keybindings
 Plug 'tpope/vim-repeat'  " repeat last command
 Plug 'tpope/vim-sleuth'  " auto indent detection
 Plug 'tpope/vim-dispatch'  " asynchronous actions
+Plug 'tpope/vim-endwise'  " add end appropriately
 
 " git diffs
 Plug 'airblade/vim-gitgutter'
@@ -80,10 +81,11 @@ let g:lightline = {
   \   'active': {
   \     'left': [
   \       ['mode', 'paste'],
-  \       [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \       [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ]
   \     ]
   \   },
   \   'component_function': {
+  \     'cocstatus': 'coc#status',
   \     'filename': 'LightlineFilename',
   \     'gitbranch': 'fugitive#head'
   \   }
@@ -113,14 +115,6 @@ let g:neoterm_default_mod = "rightbelow"
 let g:neoterm_size = 15
 let g:neoterm_autoscroll = 1
 
-" Deoplete
-" let g:deoplete#enable_at_startup = 1
-
-" Neosnippet
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k> <Plug>(neosnippet_expand_target)
-
 " Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Old habbits die hard
@@ -131,7 +125,6 @@ nmap <leader>tS :set spell!<CR>
 nmap <leader>tw :set wrap!<CR>
 nmap <leader>tl :set list!<CR>
 
-" nnoremap <leader>ts :ALEToggle<CR>
 nnoremap <leader>tg :Goyo<CR>
 nnoremap <leader>ti :IndentGuidesToggle<CR>
 nnoremap <leader>tt :Ttoggle<CR>
