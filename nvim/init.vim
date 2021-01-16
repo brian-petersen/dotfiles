@@ -34,6 +34,7 @@ Plug 'itchyny/lightline.vim'  " pretty status bar
 
 " IDE
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
 
 " Polyglot
 Plug 'sheerun/vim-polyglot'  " latest syntax grammars
@@ -171,6 +172,9 @@ endfunction
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-b> :TestFile<CR>
 nmap <silent> t<C-l> :TestLast<CR>
+
+" Snippets
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Miscellaneous Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
