@@ -1,17 +1,14 @@
 #/usr/bin/env bash
 
-echo Setting up git submodules...
 git submodule update --init --recursive
 
-echo Making needed config directories...
 mkdir -p $HOME/.config
+mkdir -p $HOME/.tmux/plugins
 
-echo Symbolically linking configs...
-ln -s -i $HOME/.dotfiles/gdbinit $HOME/.gdbinit
-ln -s -i $HOME/.dotfiles/gitconfig $HOME/.gitconfig
-ln -s -i $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
-ln -s -i $HOME/.dotfiles/zshrc $HOME/.zshrc
-
-# TODO figure out why this doesn't work
-# ln -s -i $HOME/.dotfiles/nvim $HOME/.config/nvim
-# ln -s -i $HOME/.dotfiles/oh-my-zsh $HOME/.oh-my-zsh
+ln -sT $HOME/.dotfiles/gdbinit $HOME/.gdbinit
+ln -sT $HOME/.dotfiles/gitconfig $HOME/.gitconfig
+ln -sT $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
+ln -sT $HOME/.dotfiles/zshrc $HOME/.zshrc
+ln -sT $HOME/.dotfiles/nvim $HOME/.config/nvim
+ln -sT $HOME/.dotfiles/oh-my-zsh $HOME/.oh-my-zsh
+ln -sT $HOME/.dotfiles/tpm $HOME/.tmux/plugins/tpm
