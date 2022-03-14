@@ -6,11 +6,6 @@
 
     cd ~/.dotfiles && bash setup.sh
 
-3. Install tmux plugins
-
-    tmux new
-    c-F + I
-
 4. Install neovim plugins
 
     nvim
