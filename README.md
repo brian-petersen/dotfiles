@@ -1,12 +1,12 @@
 1. Clone this repository
 
-    git clone git@github.com:brian-petersen/dotfiles.git .dotfiles
+        git clone git@github.com:brian-petersen/dotfiles.git .dotfiles
 
 2. Run setup script
 
-    cd ~/.dotfiles && bash setup.sh
+        cd ~/.dotfiles && bash setup.sh
 
-4. Install neovim plugins
+3. Install neovim plugins
 
-    nvim
-    :PlugInstall
+        nvim
+        :PlugInstall
