@@ -154,11 +154,22 @@ nnoremap <leader>To :tabonly<CR>
 
 " Completion/Intellisense
 inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
+nmap <leader>rn <Plug>(coc-rename)
+
+nmap <leader>ff :call CocAction('format')<CR>
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -172,9 +183,6 @@ endfunction
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-b> :TestFile<CR>
 nmap <silent> t<C-l> :TestLast<CR>
-
-" Snippets
-imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Miscellaneous Keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""
