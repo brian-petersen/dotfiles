@@ -9,4 +9,4 @@
 3. Install neovim plugins
 
         nvim
-        :PlugInstall
+        :PackerSync
