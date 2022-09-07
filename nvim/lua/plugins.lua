@@ -1,5 +1,5 @@
 -- To add a new language, you'll want to
--- 
+--
 --   1. Get the treesitter parser
 --      (Update 'ensure_installed' under 'nvim-treesitter/nvim-treesitter')
 --      (See :TSInstallInfo for list of available options)
@@ -32,7 +32,7 @@ local packer = require('packer')
 
 local plugins = function(use)
   use { 'wbthomason/packer.nvim' }
-  
+
   -- use { 'tpope/vim-sensible' } -- sensible defaults
   use { 'tpope/vim-fugitive' } -- git wrapper
   -- use { 'tpope/vim-surround' } -- surrounding characters
@@ -235,7 +235,7 @@ local plugins = function(use)
         },
 
         sources = {
-          { name = 'nvim_lsp' },          
+          { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'buffer' },
           { name = 'path' },
