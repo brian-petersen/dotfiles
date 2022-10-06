@@ -35,7 +35,7 @@ local plugins = function(use)
 
   -- use { 'tpope/vim-sensible' } -- sensible defaults
   use { 'tpope/vim-fugitive' } -- git wrapper
-  -- use { 'tpope/vim-surround' } -- surrounding characters
+  use { 'tpope/vim-rhubarb' } -- github integration for fugitive
   use { 'tpope/vim-unimpaired' } -- additional ] and [ related keybindings
   use { 'tpope/vim-repeat' } -- repeat last command
   use { 'tpope/vim-sleuth' } -- auto indent detection
@@ -79,7 +79,10 @@ local plugins = function(use)
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
           'javascript',
+          'json',
+          'hcl', -- terraform
           'lua',
+          'prisma', -- javascript ORM
           'rust',
           'typescript',
         },
@@ -120,8 +123,11 @@ local plugins = function(use)
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {
+          'jsonls',
+          'prismals',
           'rust_analyzer',
           'sumneko_lua',
+          'terraformls',
           'tsserver',
         },
       })
@@ -211,7 +217,7 @@ local plugins = function(use)
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
+            elseif luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
             else
               fallback()

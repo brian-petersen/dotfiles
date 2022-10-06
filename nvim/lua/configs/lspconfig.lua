@@ -24,8 +24,25 @@ M.on_attach = function(client, bufnr)
   map('n', ']d', vim.diagnostic.goto_next, 'goto previous', bufopts)
 end
 
+lspconfig.jsonls.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})
+
+lspconfig.prismals.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})
+
+-- RUST NOT NEEDED SINCE HANDLED BY rust-tools.nvim PLUGIN
+
 -- TODO get global `vim` working for lua config files
 lspconfig.sumneko_lua.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})
+
+lspconfig.terraformls.setup({
   capabilities = M.capabilities,
   on_attach = M.on_attach,
 })
