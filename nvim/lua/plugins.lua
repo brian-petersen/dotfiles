@@ -33,13 +33,11 @@ local packer = require('packer')
 local plugins = function(use)
   use { 'wbthomason/packer.nvim' }
 
-  -- use { 'tpope/vim-sensible' } -- sensible defaults
   use { 'tpope/vim-fugitive' } -- git wrapper
   use { 'tpope/vim-rhubarb' } -- github integration for fugitive
   use { 'tpope/vim-unimpaired' } -- additional ] and [ related keybindings
   use { 'tpope/vim-repeat' } -- repeat last command
   use { 'tpope/vim-sleuth' } -- auto indent detection
-  -- use { 'tpope/vim-dispatch' } -- asynchronous actions
 
   use {
     'kylechui/nvim-surround',
@@ -73,16 +71,33 @@ local plugins = function(use)
   }
 
   use {
+    'kassio/neoterm',
+    config = function()
+      require('configs.neoterm')
+    end
+  }
+
+  use {
+    'vim-test/vim-test',
+    requires = 'kassio/neoterm',
+    config = function()
+      require('configs.vimtest')
+    end
+  }
+
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
+          'elixir',
           'javascript',
           'json',
           'hcl', -- terraform
           'lua',
           'prisma', -- javascript ORM
+          'python',
           'rust',
           'typescript',
         },
@@ -123,10 +138,12 @@ local plugins = function(use)
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {
+          'elixirls',
           'jsonls',
+          'lua_ls',
           'prismals',
+          'pyright',
           'rust_analyzer',
-          'sumneko_lua',
           'terraformls',
           'tsserver',
         },

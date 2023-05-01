@@ -3,7 +3,7 @@ local map = require('utils').map
 
 local M = {}
 
-M.capabilities = require('cmp_nvim_lsp').update_capabilities(
+M.capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 
@@ -24,7 +24,18 @@ M.on_attach = function(client, bufnr)
   map('n', ']d', vim.diagnostic.goto_next, 'goto previous', bufopts)
 end
 
+lspconfig.elixirls.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})
+
 lspconfig.jsonls.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})
+
+-- TODO get global `vim` working for lua config files
+lspconfig.lua_ls.setup({
   capabilities = M.capabilities,
   on_attach = M.on_attach,
 })
@@ -34,13 +45,12 @@ lspconfig.prismals.setup({
   on_attach = M.on_attach,
 })
 
--- RUST NOT NEEDED SINCE HANDLED BY rust-tools.nvim PLUGIN
-
--- TODO get global `vim` working for lua config files
-lspconfig.sumneko_lua.setup({
+lspconfig.pyright.setup({
   capabilities = M.capabilities,
   on_attach = M.on_attach,
 })
+
+-- RUST NOT NEEDED SINCE HANDLED BY rust-tools.nvim PLUGIN
 
 lspconfig.terraformls.setup({
   capabilities = M.capabilities,

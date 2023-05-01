@@ -83,12 +83,6 @@ vim.opt.undofile = true
 
 
 
--- " Test
--- Plug 'janko/vim-test'
-
--- " Testing
--- let test#strategy = "neoterm"
-
 -- let g:neoterm_default_mod = "rightbelow"
 -- let g:neoterm_size = 15
 -- let g:neoterm_autoscroll = 1
