@@ -5,18 +5,15 @@
 --      (See :TSInstallInfo for list of available options)
 --
 --   2. Add the language server
---      (Update 'ensure_installed' under 'williamboman/mason-lspconfig.nvim')
---      (See https://github.com/williamboman/mason-lspconfig.nvim)
---
---   3. Update 'configs.lspconfig' to setup the language server stuffs
---      (Will use the same key as in step 2)
+--      (Update 'ensure_installed' under 'lsp-zero')
 
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
   if fn.empty(fn.glob(install_path)) > 0 then
-	  print('Cloning packer...')
+    print('Cloning packer...')
+
     fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     vim.cmd('packadd packer.nvim')
 
@@ -33,11 +30,11 @@ local packer = require('packer')
 local plugins = function(use)
   use { 'wbthomason/packer.nvim' }
 
-  use { 'tpope/vim-fugitive' } -- git wrapper
-  use { 'tpope/vim-rhubarb' } -- github integration for fugitive
+  use { 'tpope/vim-fugitive' }   -- git wrapper
+  use { 'tpope/vim-rhubarb' }    -- github integration for fugitive
   use { 'tpope/vim-unimpaired' } -- additional ] and [ related keybindings
-  use { 'tpope/vim-repeat' } -- repeat last command
-  use { 'tpope/vim-sleuth' } -- auto indent detection
+  use { 'tpope/vim-repeat' }     -- repeat last command
+  use { 'tpope/vim-sleuth' }     -- auto indent detection
 
   use {
     'kylechui/nvim-surround',
@@ -94,7 +91,7 @@ local plugins = function(use)
           'elixir',
           'javascript',
           'json',
-          'hcl', -- terraform
+          'hcl',    -- terraform
           'lua',
           'prisma', -- javascript ORM
           'python',
@@ -118,6 +115,8 @@ local plugins = function(use)
     end,
   }
 
+  use { 'cappyzawa/starlark.vim' }
+
   use {
     'lewis6991/gitsigns.nvim',
     config = function()
@@ -126,144 +125,120 @@ local plugins = function(use)
   }
 
   use {
-    'williamboman/mason.nvim',
-    config = function()
-      require('mason').setup()
-    end,
-  }
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    requires = {
+      { 'neovim/nvim-lspconfig' }, -- Required
+      {
+        -- Optional
+        'williamboman/mason.nvim',
+        run = ':MasonUpdate',
+      },
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
-  use {
-    'williamboman/mason-lspconfig.nvim',
-    after = 'mason.nvim',
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },     -- Required
+      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'L3MON4D3/LuaSnip' },     -- Required
+
+      -- Additonal autocomplete sources
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'cmp-nvim-lsp' },
+
+      -- Additional packages
+      { 'rafamadriz/friendly-snippets' },
+
+      -- Additional language server set ups
+      { 'simrat39/rust-tools.nvim' },
+    },
     config = function()
-      require('mason-lspconfig').setup({
-        ensure_installed = {
-          'elixirls',
-          'jsonls',
-          'lua_ls',
-          'prismals',
-          'pyright',
-          'rust_analyzer',
-          'terraformls',
-          'tsserver',
+      local lsp = require('lsp-zero').preset({})
+      local cmp = require('cmp')
+      local cmp_action = require('lsp-zero').cmp_action()
+      local rust_tools = require('rust-tools')
+
+      lsp.on_attach(function(client, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+
+        -- Additional LSP related keybindings
+        vim.keymap.set('n', '<Space>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', { buffer = true })
+        vim.keymap.set({ 'n', 'x' }, '<Space>fm', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', { buffer = true })
+        vim.keymap.set('n', '<Space>.', '<cmd>lua vim.lsp.buf.code_action()<cr>', { buffer = true })
+      end)
+
+      -- Configure lua language server for neovim
+      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+      -- Prettier icons for the side
+      lsp.set_sign_icons({
+        error = '✘',
+        warn = '▲',
+        hint = '⚑',
+        info = '»'
+      })
+
+      lsp.ensure_installed({
+        'elixirls',
+        'jsonls',
+        'lua_ls',
+        'prismals',
+        'pyright',
+        'rust_analyzer',
+        'terraformls',
+        'tsserver',
+      })
+
+      -- Skip these language servers as they have
+      -- additional packages to help set up there config
+      lsp.skip_server_setup({ 'rust_analyzer' })
+
+      -- Set everything up
+      lsp.setup()
+
+      rust_tools.setup()
+
+      -- IMPORTANT everything below this needs to be set up after lsp-zero
+
+      -- Load "friendly-snippets" installed above
+      require('luasnip.loaders.from_vscode').lazy_load()
+
+      cmp.setup({
+        -- Additional completion sources
+        -- (But overrides ones setup by lsp-zero so have to include them all)
+        sources = {
+          { name = 'path' },
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'luasnip' },
+        },
+
+        -- Additional completion menu key bindings
+        mapping = {
+          -- `Enter` key to confirm completion
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
+          -- Ctrl+Space to trigger completion menu
+          ['<C-Space>'] = cmp.mapping.complete(),
+
+          -- Supertab like capabilities
+          --   - Navigate between items
+          --   - Trigger snippet
+          --   - Jump between snippet placeholders
+          --   - If in middle of word, display completion menu
+          --   - Otherwise, like normal tab
+          ['<Tab>'] = cmp_action.luasnip_supertab(),
+          ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
         },
       })
-    end,
-  }
-
-  use { 'hrsh7th/cmp-nvim-lsp' }
-
-  use {
-    'weilbith/nvim-code-action-menu',
-    config = function()
-      require('configs.codeaction')
-    end,
-  }
-
-  use {
-    'neovim/nvim-lspconfig',
-    after = { 'mason-lspconfig.nvim', 'cmp-nvim-lsp' },
-    config = function()
-      require('configs.lspconfig')
-    end,
-  }
-
-  use {
-    'simrat39/rust-tools.nvim',
-    after = { 'nvim-lspconfig' },
-    config = function()
-      require('configs.rusttools')
-    end,
+    end
   }
 
   use {
     'folke/trouble.nvim',
     config = function()
       require('configs.trouble')
-    end,
-  }
-
-  use {
-    'ray-x/lsp_signature.nvim',
-    config = function()
-      require('lsp_signature').setup()
-    end,
-  }
-
-  use { 'hrsh7th/cmp-buffer' }
-
-  use { 'hrsh7th/cmp-path' }
-
-  use { 'rafamadriz/friendly-snippets' }
-
-  use {
-    'L3MON4D3/LuaSnip',
-    after = 'friendly-snippets',
-    config = function()
-      require('luasnip.loaders.from_vscode').lazy_load()
-    end,
-  }
-
-  use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
-
-  use {
-    'hrsh7th/nvim-cmp',
-    after = { 'cmp-nvim-lsp', 'cmp-buffer', 'cmp-path', 'cmp_luasnip' },
-    config = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-
-      vim.opt.completeopt = 'menu,menuone,noselect'
-
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-
-        mapping = {
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          ['<C-k>'] = cmp.mapping.select_prev_item(),
-          ['<C-j>'] = cmp.mapping.select_next_item(),
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm(),
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, {
-            'i',
-            's',
-          }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, {
-            'i',
-            's',
-          }),
-        },
-
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
-        },
-      })
     end,
   }
 
@@ -296,6 +271,9 @@ local plugins = function(use)
         options = {
           theme = 'onedark',
         },
+        sections = {
+          lualine_c = { {'filename', path = 1 }},
+        },
       })
     end,
   }
@@ -315,4 +293,4 @@ local config = {
   }
 }
 
-packer.startup({plugins, config = config })
+packer.startup({ plugins, config = config })
