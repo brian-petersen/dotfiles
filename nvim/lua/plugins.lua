@@ -89,9 +89,10 @@ local plugins = function(use)
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
           'elixir',
+          'hcl', -- terraform
+          'heex', -- phoenix liveview templates
           'javascript',
           'json',
-          'hcl',    -- terraform
           'lua',
           'prisma', -- javascript ORM
           'python',
