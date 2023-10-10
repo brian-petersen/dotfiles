@@ -74,6 +74,11 @@ if [ -d $HOME/bin ]; then
     export PATH=$HOME/bin:$PATH
 fi
 
+# Set up editor
+if command -v nvim &> /dev/null; then
+    export EDITOR=nvim
+fi
+
 # Include local configs if necessary
 if [[ -a $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
