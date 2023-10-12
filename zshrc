@@ -47,27 +47,43 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose)
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
+plugins=(
+    ag
+    archlinux
+    asdf
+    brew
+    bun
+    # To get this working on Archlinux...
+    #   pacman -S pkgfile
+    #   sudo pkgfile --update
+    #   sudo systemctl enable pkgfile-update.timer
+    command-not-found
+    common-aliases
+    copyfile
+    copypath
+    deno
+    direnv
+    docker
+    docker-compose
+    dotnet
+    encode64
+    extract
+    fzf
+    gcloud
+    gh
+    git
+    gitignore
+    golang
+    httpie
+    kubectl
+    mix
+    pip
+    rust
+    safe-paste
+    volta
+)
 
 source $ZSH/oh-my-zsh.sh
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Add ~/bin to path if it exists
 if [ -d $HOME/bin ]; then
