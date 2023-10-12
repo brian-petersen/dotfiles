@@ -3,12 +3,6 @@ vim.g.mapleader = ' '
 require('plugins')
 require('mappings')
 
-
--- lsp diagnostic? hover over error and get more details or something
--- tab is broken it appears?
-
-
-
 -- Numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -64,10 +58,7 @@ vim.opt.undofile = true
 
 
 
-
-
-
--- TODO need to sort these
+-- TODO need to sort these out... don't seem to be working
 -- vim.opt.laststatus = 3 -- global statusline
 -- vim.opt.showmode = false
 
@@ -79,25 +70,9 @@ vim.opt.undofile = true
 
 
 
-
-
-
-
--- let g:neoterm_default_mod = "rightbelow"
--- let g:neoterm_size = 15
--- let g:neoterm_autoscroll = 1
-
+--- TODO these need to be ported over when ready
 -- " Keybindings
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""
--- " Old habbits die hard
-
--- " Toggles
--- nnoremap <leader>tt :Ttoggle<CR>
-
--- " List
-
--- " Search
--- nnoremap <leader>sw :Ack <C-r><C-w><CR>
 
 -- " File
 -- nnoremap <leader>fed :vsp $MYVIMRC<CR>

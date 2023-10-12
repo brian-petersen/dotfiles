@@ -257,7 +257,8 @@ local plugins = function(use)
     'navarasu/onedark.nvim',
     config = function()
       require('onedark').setup({
-        style = 'warm',
+        style = 'dark',
+        transparent = true,
       })
 
       require('onedark').load()
