@@ -1,3 +1,5 @@
+# Setting Up
+
 1. Clone this repository
 
         git clone git@github.com:brian-petersen/dotfiles.git .dotfiles
@@ -10,3 +12,9 @@
 
         nvim
         :PackerSync
+
+# Distro Notes
+
+## Arch Linux
+
+- Install `pkgfile` and enable database updates: `pacman -S pkgfile` and `systemctl enable pkgfile-update.timer`
