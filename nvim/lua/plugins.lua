@@ -94,6 +94,8 @@ local plugins = function(use)
           'javascript',
           'json',
           'lua',
+          'ocaml',
+          'ocaml_interface',
           'prisma', -- javascript ORM
           'python',
           'rust',
@@ -184,6 +186,7 @@ local plugins = function(use)
         'elixirls',
         'jsonls',
         'lua_ls',
+        'ocamllsp',
         'prismals',
         'pyright',
         'rust_analyzer',
