@@ -1,15 +1,25 @@
-#/usr/bin/env bash
-
-set -x
-
+echo Setting up submodules
 git submodule update --init --recursive
 
+echo Creating necessary directories
 mkdir -p $HOME/.config
 
-ln -sT $HOME/.dotfiles/gdb-dashboard/.gdbinit $HOME/.gdbinit
-ln -sT $HOME/.dotfiles/gitconfig $HOME/.gitconfig
-ln -sT $HOME/.dotfiles/kitty $HOME/.config/kitty
-ln -sT $HOME/.dotfiles/nvim $HOME/.config/nvim
-ln -sT $HOME/.dotfiles/oh-my-zsh $HOME/.oh-my-zsh
-ln -sT $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
-ln -sT $HOME/.dotfiles/zshrc $HOME/.zshrc
+create_symlink_if_not_exist() {
+  local source="$1"
+  local target="$2"
+
+  if [ -e "$target" ]; then
+    echo "Target already exists: $target"
+  else
+
+    ln -sT "$source" "$target"
+    echo "Symbolic link created: $target -> $source"
+  fi
+}
+
+create_symlink_if_not_exist $HOME/.dotfiles/gitconfig $HOME/.gitconfig
+create_symlink_if_not_exist $HOME/.dotfiles/kitty $HOME/.config/kitty
+create_symlink_if_not_exist $HOME/.dotfiles/nvim $HOME/.config/nvim
+create_symlink_if_not_exist $HOME/.dotfiles/oh-my-zsh $HOME/.oh-my-zsh
+create_symlink_if_not_exist $HOME/.dotfiles/tmux.conf $HOME/.tmux.conf
+create_symlink_if_not_exist $HOME/.dotfiles/zshrc $HOME/.zshrc

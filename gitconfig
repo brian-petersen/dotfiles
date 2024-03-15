@@ -7,7 +7,7 @@
 	path = .gitconfig.local
 
 # Potential things to include in the gitconfig.local
-[core]
+# [core]
 	# For wsl set ups, this allows 1password
 	# to be used to retrieve private keys securely
-	sshCommand = ssh.exe
+	# sshCommand = ssh.exe

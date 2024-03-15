@@ -17,4 +17,4 @@
 
 ## Arch Linux
 
-- Install `pkgfile` and enable database updates: `pacman -S pkgfile` and `systemctl enable pkgfile-update.timer`
+- Install `pkgfile` and enable database updates: `pacman -S pkgfile && pkgfile --update` and `systemctl enable pkgfile-update.timer`
