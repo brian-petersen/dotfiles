@@ -15,7 +15,6 @@ require('telescope').setup({
 })
 
 map('n', '<leader>p', '<cmd>Telescope find_files<cr>', 'find files')
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', 'find files')
 map('n', '<leader>fa', '<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>', 'find all files')
 map('n', '<leader>fw', '<cmd>Telescope live_grep<cr>', 'live grep')
 map('n', '<leader>tk', '<cmd>Telescope keymaps<cr>', 'show keys')

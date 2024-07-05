@@ -43,9 +43,6 @@ vim.opt.cursorline = true
 -- Highlight matching bracket
 vim.opt.showmatch = true
 
--- Toggle this mode to paste without auto formatting
-vim.opt.pastetoggle = '<F2>'
-
 -- Auto reload file when changed outside of vim
 vim.opt.autoread = true
 

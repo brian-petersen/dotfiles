@@ -95,6 +95,11 @@ if command -v nvim &> /dev/null; then
     export EDITOR=nvim
 fi
 
+# Set up fzf powered aliases
+if command -v fzf &> /dev/null; then
+    alias gch="git checkout \$(git branch | fzf | tr -d '[:space:]' | tr -d '[*]')"
+fi
+
 # Include local configs if necessary
 if [[ -a $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
