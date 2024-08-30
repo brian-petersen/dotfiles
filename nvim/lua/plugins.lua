@@ -186,7 +186,7 @@ local plugins = function(use)
         'elixirls',
         'jsonls',
         'lua_ls',
-        'ocamllsp',
+        -- 'ocamllsp',
         'prismals',
         'pyright',
         'rust_analyzer',
