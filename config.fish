@@ -3,15 +3,15 @@ set fish_greeting
 
 # Add $HOME/bin to path
 if test -d $HOME/bin
-  fish_add_path $HOME/bin
+  fish_add_path --path $HOME/bin
 end
 
 if test -d /opt/homebrew/bin
-  fish_add_path /opt/homebrew/bin
+  fish_add_path --path /opt/homebrew/bin
 end
 
 if test -d $HOME/.cargo/bin
-  fish_add_path $HOME/.cargo/bin
+  fish_add_path --path $HOME/.cargo/bin
 end
 
 # Set nvim as default editor
