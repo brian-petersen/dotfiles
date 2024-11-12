@@ -3,6 +3,7 @@ git submodule update --init --recursive
 
 echo Creating necessary directories
 mkdir -p $HOME/.config
+mkdir -p $HOME/.config/fish
 
 create_symlink_if_not_exist() {
   local source="$1"
@@ -12,11 +13,12 @@ create_symlink_if_not_exist() {
     echo "Target already exists: $target"
   else
 
-    ln -sT "$source" "$target"
+    ln -s "$source" "$target"
     echo "Symbolic link created: $target -> $source"
   fi
 }
 
+create_symlink_if_not_exist $HOME/.dotfiles/config.fish $HOME/.config/fish/config.fish
 create_symlink_if_not_exist $HOME/.dotfiles/gitconfig $HOME/.gitconfig
 create_symlink_if_not_exist $HOME/.dotfiles/kitty $HOME/.config/kitty
 create_symlink_if_not_exist $HOME/.dotfiles/nvim $HOME/.config/nvim
