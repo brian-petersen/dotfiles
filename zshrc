@@ -100,6 +100,11 @@ if command -v fzf &> /dev/null; then
     alias gch="git checkout \$(git branch | fzf | tr -d '[:space:]' | tr -d '[*]')"
 fi
 
+# Set up docker aliases
+if command -v docker &> /dev/null; then
+    alias docker_last_build_id="docker images --format \"{{.ID}} {{.CreatedAt}}\" | sort -rk 2 | awk 'NR==1{print \$1}'"
+fi
+
 # Include local configs if necessary
 if [[ -a $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
