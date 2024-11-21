@@ -1,7 +1,24 @@
 vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
-require('plugins')
 require('mappings')
+
+require('config.lazy')
+
+-- require('plugins')
+-- require('mappings')
+
+--
+-- Folding
+--
+-- Using treesitter (doesn't work...)
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.opt.foldlevel = 99 -- start with folds open
+
+-- Going old school for now
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 99
 
 -- Numbers
 vim.opt.number = true

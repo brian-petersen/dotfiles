@@ -6,6 +6,7 @@
 --
 --   2. Add the language server
 --      (Update 'ensure_installed' under 'lsp-zero')
+--      (See ':h lspconfig-all' for a list of servers)
 
 local ensure_packer = function()
   local fn = vim.fn
@@ -89,7 +90,9 @@ local plugins = function(use)
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
           'elixir',
-          'hcl', -- terraform
+          'gleam',
+          'go',
+          'hcl',  -- terraform
           'heex', -- phoenix liveview templates
           'javascript',
           'json',
@@ -117,8 +120,6 @@ local plugins = function(use)
       vim.opt.foldlevel = 99
     end,
   }
-
-  use { 'cappyzawa/starlark.vim' }
 
   use {
     'lewis6991/gitsigns.nvim',
@@ -183,7 +184,9 @@ local plugins = function(use)
       })
 
       lsp.ensure_installed({
+        'denols',
         'elixirls',
+        'gopls',
         'jsonls',
         'lua_ls',
         -- 'ocamllsp',
@@ -191,7 +194,7 @@ local plugins = function(use)
         'pyright',
         'rust_analyzer',
         'terraformls',
-        'tsserver',
+        'ts_ls',
       })
 
       -- Skip these language servers as they have
@@ -237,13 +240,6 @@ local plugins = function(use)
         },
       })
     end
-  }
-
-  use {
-    'folke/trouble.nvim',
-    config = function()
-      require('configs.trouble')
-    end,
   }
 
   use { 'kyazdani42/nvim-web-devicons' }
