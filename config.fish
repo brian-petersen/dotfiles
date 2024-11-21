@@ -1,9 +1,9 @@
 # Remove greeting
 set fish_greeting
 
-# Add $HOME/bin to path
-if test -d $HOME/bin
-  fish_add_path --path $HOME/bin
+# Set up paths
+if test -d $HOME/.asdf/shims
+  fish_add_path --path $HOME/.asdf/shims
 end
 
 if test -d /opt/homebrew/bin
@@ -12,6 +12,14 @@ end
 
 if test -d $HOME/.cargo/bin
   fish_add_path --path $HOME/.cargo/bin
+end
+
+if test -d $HOME/bin
+  fish_add_path --path $HOME/bin
+end
+
+if test -d $HOME/.local/bin
+  fish_add_path --path $HOME/.local/bin
 end
 
 # Set nvim as default editor
@@ -24,21 +32,44 @@ if type -q starship
   starship init fish | source
 end
 
+# Functions
+function git_main_branch -d 'Detect name of main branch of current git repository'
+  # heuristic to return the name of the main branch
+  command git rev-parse --git-dir &> /dev/null || return
+
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,master,trunk}
+    if command git show-ref -q --verify $ref
+      echo (string split -r -m1 -f2 / $ref)
+      return
+    end
+  end
+
+  echo main
+end
+
+# docker
+abbr db "docker build"
+abbr dc "docker compose"
+abbr di "docker images"
+abbr dps "docker ps"
+abbr dsa "docker stop \$(docker ps -a -q) > /dev/null"
+
 # git (see https://github.com/lewisacidic/fish-git-abbr/tree/master for inspiration)
 abbr g "git"
-abbr gst "git status"
-abbr gco "git checkout"
 abbr gb "git branch"
 abbr gba "git branch --all"
 abbr gbd "git branch --delete"
-# gcm='git checkout $(git_main_branch)'
+abbr gc "git commit"
+abbr gcm "git checkout \$(git_main_branch)"
+abbr gco "git checkout"
 abbr gd "git diff"
 abbr gf "git fetch"
 abbr gfa "git fetch --all --prune --jobs=10"
 abbr gl "git log"
-abbr gls "git log --stat"
 abbr glog "git log --oneline --decorate --graph"
 abbr gloga "git log --oneline --decorate --graph --all"
+abbr gls "git log --stat"
+abbr gst "git status"
 
 # tmux
 abbr ta "tmux attach -t"

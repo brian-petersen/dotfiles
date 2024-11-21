@@ -1,27 +1,50 @@
--- Does not include plugin related mappings.
--- Thosse are found in `plugins`.
+local map = function(mode, lhs, rhs, label, opts)
+  local options = { noremap = true, desc = label }
 
-local map = require('utils').map
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+  end
 
-map('i', 'fd', '<Esc>', 'exit insert mode')
+  vim.keymap.set(mode, lhs, rhs, options)
+end
 
-map('n', '<leader><leader>', '<C-^>', 'toggle buffer')
 
-map('n', '<leader>fs', ':w<CR>', 'save file')
+map('i', 'fd', '<Esc>', 'Exit insert mode')
+map('t', 'fd', '<C-\\><C-n>', 'Exit insert mode')
 
-map('n', 'j', 'gj', 'move vertical line')
-map('n', 'k', 'gk', 'move vertical line')
+map('n', '<leader><leader>', '<C-^>', 'Toggle buffer')
 
-map('n', 'gV', '`[v`]', 'select last inserted text')
+map('n', '<leader>fs', ':w<CR>', 'Save file')
 
-map('n', 'Y', 'y$', 'fix copy')
+map('n', 'j', 'gj', 'Move vertical line')
+map('v', 'j', 'gj', 'Move vertical line')
+map('n', 'k', 'gk', 'Move vertical line')
+map('v', 'k', 'gk', 'Move vertical line')
 
-map('n', '<leader>Tn', ':tabnew<CR>', 'new tab')
-map('n', '<leader>Tc', ':tabclose<CR>', 'close tab')
-map('n', '<leader>To', ':tabonly<CR>', 'only tab')
+map('n', 'gV', '`[v`]', 'Select last inserted text')
 
-map('n', '<leader>g', ':Git<CR>', 'only git')
+map('n', 'Y', 'y$', 'Fix copy')
 
-map('n', '<leader>dt', ':%s/\\s\\+$//<CR>', 'trim trailing whitespace')
+map('n', '<leader>Tn', ':tabnew<CR>', 'New tab')
+map('n', '<leader>Tc', ':tabclose<CR>', 'Close tab')
+map('n', '<leader>To', ':tabonly<CR>', 'Only tab')
 
-map('n', '<leader>sc', ':nohlsearch<CR>', 'clear search highlight')
+map('n', '<leader>dt', ':%s/\\s\\+$//<CR>', 'Trim trailing whitespace')
+
+map('n', '<leader>sc', ':nohlsearch<CR>', 'Clear search highlight')
+
+local toggle_qf = function()
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win["quickfix"] == 1 then
+      qf_exists = true
+    end
+  end
+
+  if qf_exists then
+    vim.cmd('cclose')
+  else
+    vim.cmd('copen')
+  end
+end
+map('n', 'yoq', toggle_qf, 'Toggle quickfix window')

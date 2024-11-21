@@ -4,6 +4,7 @@ git submodule update --init --recursive
 echo Creating necessary directories
 mkdir -p $HOME/.config
 mkdir -p $HOME/.config/fish
+mkdir -p $HOME/.config/ghostty
 
 create_symlink_if_not_exist() {
   local source="$1"
@@ -19,6 +20,7 @@ create_symlink_if_not_exist() {
 }
 
 create_symlink_if_not_exist $HOME/.dotfiles/config.fish $HOME/.config/fish/config.fish
+create_symlink_if_not_exist $HOME/.dotfiles/ghostty-config $HOME/.config/ghostty/config
 create_symlink_if_not_exist $HOME/.dotfiles/gitconfig $HOME/.gitconfig
 create_symlink_if_not_exist $HOME/.dotfiles/kitty $HOME/.config/kitty
 create_symlink_if_not_exist $HOME/.dotfiles/nvim $HOME/.config/nvim

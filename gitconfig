@@ -1,10 +1,15 @@
 [user]
 	email = skiwalk3r@gmail.com
 	name = Brian Petersen
+
 [push]
 	default = simple
+
 [include]
 	path = .gitconfig.local
+
+[init]
+	defaultBranch = main
 
 # Potential things to include in the gitconfig.local
 # [core]
