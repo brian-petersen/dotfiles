@@ -1,6 +1,7 @@
 # Remove greeting
 set fish_greeting
 
+# Set up paths
 if test -d /opt/homebrew/bin
   fish_add_path --path /opt/homebrew/bin
 end
@@ -9,9 +10,12 @@ if test -d $HOME/.cargo/bin
   fish_add_path --path $HOME/.cargo/bin
 end
 
-# Add $HOME/bin to path
 if test -d $HOME/bin
   fish_add_path --path $HOME/bin
+end
+
+if test -d $HOME/.local/bin
+  fish_add_path --path $HOME/.local/bin
 end
 
 # Set nvim as default editor
