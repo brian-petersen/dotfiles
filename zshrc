@@ -90,6 +90,11 @@ if [ -d $HOME/bin ]; then
     export PATH=$HOME/bin:$PATH
 fi
 
+# Add ~/.cargo/bin to path if it exists
+if [ -d $HOME/.cargo/bin ]; then
+    export PATH=$HOME/.cargo/bin:$PATH
+fi
+
 # Set up editor
 if command -v nvim &> /dev/null; then
     export EDITOR=nvim
