@@ -9,7 +9,7 @@
 	path = .gitconfig.local
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 # Potential things to include in the gitconfig.local
 # [core]
