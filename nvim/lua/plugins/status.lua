@@ -6,7 +6,7 @@ return {
         theme = 'onedark',
       },
       sections = {
-        lualine_c = { {'filename', path = 1 } },
+        lualine_c = { { 'filename', path = 1 } },
       },
     },
     dependencies = {

@@ -17,7 +17,9 @@ map('n', '<leader><leader>', '<C-^>', 'Toggle buffer')
 map('n', '<leader>fs', ':w<CR>', 'Save file')
 
 map('n', 'j', 'gj', 'Move vertical line')
+map('v', 'j', 'gj', 'Move vertical line')
 map('n', 'k', 'gk', 'Move vertical line')
+map('v', 'k', 'gk', 'Move vertical line')
 
 map('n', 'gV', '`[v`]', 'Select last inserted text')
 

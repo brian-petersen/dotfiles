@@ -17,6 +17,7 @@ return {
           'prisma', -- javascript ORM
           'python',
           'rust',
+          'terraform',
           'typescript',
         },
 

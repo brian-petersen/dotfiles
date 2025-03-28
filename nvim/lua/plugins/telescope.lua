@@ -12,6 +12,7 @@ return {
         },
       },
     },
+    lazy = false,
     keys = {
       { '<leader>p', ':Telescope find_files<CR>', desc = 'Find files' },
       { '<leader>sh', ':Telescope help_tags<CR>', desc = '[S]earch [H]elp' },
