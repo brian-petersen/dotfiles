@@ -10,12 +10,27 @@ return {
         return is_enabled
       end,
       keymap = { preset = 'enter' },
-      completion = { documentation = { auto_show = true } },
+      completion = {
+        documentation = { auto_show = true },
+        list = { selection = { preselect = false } },
+      },
       fuzzy = { implementation = 'prefer_rust_with_warning' },
     },
     lazy = false,
     keys = {
-      { 'yoc', function() is_enabled = not is_enabled end, desc = 'Toggle blink completion' },
+      {
+        'yoc',
+        function()
+          is_enabled = not is_enabled
+
+          if is_enabled then
+            vim.api.nvim_echo({ { 'Blink completion enabled' } }, false, {})
+          else
+            vim.api.nvim_echo({ { 'Blink completion disabled' } }, false, {})
+          end
+        end,
+        desc = 'Toggle blink completion'
+      },
     },
   }
 }

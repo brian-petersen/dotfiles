@@ -12,14 +12,20 @@ vim.diagnostic.config({
 local configs = {
   elixirls = {
     cmd = { 'elixir-ls' },
-    root_markers = { 'mix.exs' },
     filetypes = { 'elixir', 'eelixir', 'heex', 'surface' },
+    root_markers = { 'mix.exs' },
+  },
+
+  luals = {
+    cmd = { 'lua-language-server' },
+    filetypes = { 'lua' },
+    root_markers = { 'init.lua', 'main.lua', 'config.lua', '.luarc.json' },
   },
 
   rust_analyzer = {
     cmd = { 'rust-analyzer' },
-    root_markers = { 'Cargo.toml' },
     filetypes = { 'rust' },
+    root_markers = { 'Cargo.toml' },
   },
 }
 
