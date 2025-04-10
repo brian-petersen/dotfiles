@@ -22,9 +22,13 @@ if test -d $HOME/.local/bin
   fish_add_path --path $HOME/.local/bin
 end
 
-# Set nvim as default editor
+# nvim specific settings
 if type -q nvim
+  # Set nvim as default editor
   set -gx EDITOR nvim
+
+  # Set nvim as man page viewer
+  set -gx MANPAGER 'nvim +Man!'
 end
 
 # Use starship as the prompt
