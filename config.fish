@@ -28,7 +28,7 @@ if type -q nvim
   set -gx EDITOR nvim
 
   # Set nvim as man page viewer
-  set -gx MANPAGER 'nvim +Man!'
+  set -gx MANPAGER "nvim +Man!"
 end
 
 # Use starship as the prompt
@@ -37,7 +37,7 @@ if type -q starship
 end
 
 # Functions
-function git_main_branch -d 'Detect name of main branch of current git repository'
+function git_main_branch -d "Detect name of main branch of current git repository"
   # heuristic to return the name of the main branch
   command git rev-parse --git-dir &> /dev/null || return
 
@@ -49,6 +49,13 @@ function git_main_branch -d 'Detect name of main branch of current git repositor
   end
 
   echo main
+end
+
+function gch --description "Use fzf to interactively checkout of local branches"
+  set branch (git branch --sort=-committerdate --format="%(refname:short)" | fzf --reverse --height=40% --prompt="Git branch > ")
+  if test -n "$branch"
+    git checkout $branch
+  end
 end
 
 # docker

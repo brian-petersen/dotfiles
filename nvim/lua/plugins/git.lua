@@ -8,7 +8,7 @@ return {
     'tpope/vim-fugitive',
     lazy = false,
     keys = {
-      { '<leader>g', ':Git<CR>', desc = 'Open git' },
+      { '<leader>g', ':Git<CR>', desc = '[g]it' },
     },
   },
 
