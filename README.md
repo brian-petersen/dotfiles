@@ -6,7 +6,7 @@
 
 2. Run setup script
 
-        cd ~/.dotfiles && bash setup.sh
+        cd ~/.dotfiles && ./setup
 
 3. Install neovim plugins
 
@@ -24,3 +24,4 @@
 - `asdf`
 - `fzf`
 - `ripgrep`
+- `starship`
