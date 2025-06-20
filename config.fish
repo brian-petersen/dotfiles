@@ -71,6 +71,7 @@ abbr gb "git branch"
 abbr gba "git branch --all"
 abbr gbd "git branch --delete"
 abbr gc "git commit"
+abbr gca "git commit --amend"
 abbr gcm "git checkout \$(git_main_branch)"
 abbr gco "git checkout"
 abbr gd "git diff"
@@ -80,7 +81,13 @@ abbr gl "git log"
 abbr glog "git log --oneline --decorate --graph"
 abbr gloga "git log --oneline --decorate --graph --all"
 abbr gls "git log --stat"
+abbr gpf "git push --force"
 abbr gst "git status"
+
+# ls
+abbr l "ls -lFh"
+abbr ll "ls -lFh"
+abbr la "ls -lAFh"
 
 # tmux
 abbr ta "tmux attach -t"
