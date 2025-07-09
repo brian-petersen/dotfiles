@@ -1,0 +1,14 @@
+#!/bin/bash
+
+monitor_name="eDP-1"
+monitor_info=$(hyprctl monitors -j | jq -r ".[] | select(.name == \"$monitor_name\")")
+current_scale=$(echo "$monitor_info" | jq -r ".scale")
+
+echo $current_scale
+
+new_scale="1.00"
+if [ "$current_scale" == "1.00" ]; then
+    new_scale="1.20"
+fi
+
+hyprctl keyword monitor eDP-1,preferred,auto,$new_scale

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+hyprctl dispatch dpms off eDP-1
+hyprctl keyword monitor eDP-1,disable
+
+systemctl restart --user waybar.service

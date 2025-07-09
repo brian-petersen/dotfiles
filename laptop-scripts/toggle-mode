@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+current_mode=$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'")
+
+if [[ "$current_mode" == "prefer-light" ]]; then
+  echo Switching to dark mode
+
+  kill $(pidof swaybg)
+  swaybg --output "*" --image $HOME/background-dark.jpg --mode fill &
+
+  gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+  gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
+  kvantummanager --set KvGnomeDark
+else
+  echo Switching to light mode
+
+  kill $(pidof swaybg)
+  swaybg --output "*" --image $HOME/background.jpg --mode fill &
+
+  gsettings set org.gnome.desktop.interface gtk-theme Adwaita
+  gsettings set org.gnome.desktop.interface color-scheme prefer-light
+  gsettings set org.gnome.desktop.interface icon-theme Papirus
+  kvantummanager --set KvGnome
+fi

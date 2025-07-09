@@ -1,0 +1,4 @@
+when hyprland reloads config in clamshell mode the laptop monitor is re-enabled
+
+if darkmode is enabled on login, the wrong background is shown
+  simply toggling the mode twice resets it
