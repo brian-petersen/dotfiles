@@ -32,5 +32,13 @@ return {
         desc = 'Toggle blink completion'
       },
     },
-  }
+  },
+  {
+    'kosayoda/nvim-lightbulb',
+    opts = {
+      autocmd = {
+        enabled = true
+      }
+    }
+  },
 }

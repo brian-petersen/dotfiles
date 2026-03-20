@@ -4,7 +4,6 @@ vim.g.maplocalleader = '\\'
 require('config.lazy')
 
 require('mappings')
-require('lsp')
 require('folding')
 
 -- Numbers

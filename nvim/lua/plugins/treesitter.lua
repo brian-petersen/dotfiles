@@ -7,6 +7,7 @@ return {
         ensure_installed = {
           'elixir',
           'gleam',
+          'go',
           'hcl', -- terraform
           'heex', -- phoenix liveview templates
           'javascript',

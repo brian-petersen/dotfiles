@@ -9,7 +9,7 @@ return {
     'kylechui/nvim-surround',
     opts = {},
   },
-  
+
   -- better tmux navigation
   { 'christoomey/vim-tmux-navigator' },
 

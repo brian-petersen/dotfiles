@@ -13,5 +13,5 @@ return {
   },
 
   -- github integration for fugitive
-  { 'tpope/vim-rhubarb' },  
+  { 'tpope/vim-rhubarb' },
 }
