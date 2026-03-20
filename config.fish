@@ -2,10 +2,6 @@
 set fish_greeting
 
 # Set up paths
-if test -d $HOME/.asdf/shims
-  fish_add_path --path $HOME/.asdf/shims
-end
-
 if test -d /opt/homebrew/bin
   fish_add_path --path /opt/homebrew/bin
 end
@@ -51,6 +47,21 @@ function git_main_branch -d "Detect name of main branch of current git repositor
   echo main
 end
 
+function git_main_remote_branch -d "Detect name of main branch of current git repository's origin/upstream remote"
+  # heuristic to return the name of the main remote branch
+  command git rev-parse --git-dir &> /dev/null || return
+
+  for ref in refs/remotes/{origin,upstream}/{main,master,trunk}
+    if command git show-ref -q --verify $ref
+      set -l parts (string split / $ref)
+      echo "$parts[3]/$parts[4]"
+      return
+    end
+  end
+
+  echo origin/main
+end
+
 function gch --description "Use fzf to interactively checkout of local branches"
   set branch (git branch --sort=-committerdate --format="%(refname:short)" | fzf --reverse --height=40% --prompt="Git branch > ")
   if test -n "$branch"
@@ -81,7 +92,12 @@ abbr gl "git log"
 abbr glog "git log --oneline --decorate --graph"
 abbr gloga "git log --oneline --decorate --graph --all"
 abbr gls "git log --stat"
+abbr gp "git push"
 abbr gpf "git push --force"
+abbr gr "git rebase"
+abbr grc "git rebase --continue"
+abbr gri "git rebase --interactive"
+abbr grm "git rebase \$(git_main_remote_branch)"
 abbr gst "git status"
 
 # ls
