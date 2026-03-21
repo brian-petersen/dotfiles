@@ -32,6 +32,11 @@ if type -q starship
   starship init fish | source
 end
 
+# Activate mise if available
+if type -q mise
+  mise activate fish | source
+end
+
 # Functions
 function git_main_branch -d "Detect name of main branch of current git repository"
   # heuristic to return the name of the main branch
