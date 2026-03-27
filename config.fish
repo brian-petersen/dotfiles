@@ -1,7 +1,10 @@
 # Remove greeting
 set fish_greeting
 
+#
 # Set up paths
+#
+
 if test -d /opt/homebrew/bin
   fish_add_path --path /opt/homebrew/bin
 end
